@@ -1,5 +1,5 @@
 # Offers-and-Needs
-An Open Source Web Mobile App for Facilitating Community Small Group and Community Mutual Aid
+An Open Source Web Mobile App for Strengthening Small Group and Community Relationships through Caring for Each Other's Needs
 
 ## Installation
 
