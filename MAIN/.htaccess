@@ -1,0 +1,20 @@
+RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA] 
+
+
+<IfModule mod_env.c>
+    #Set Environment(development,testing,production)
+    SetEnv CI_ENV development
+</IfModule>
+<IfModule mod_rewrite.c>
+    #if mod_env module not enabled in server
+    #Set Environment(development,testing,production)
+    RewriteRule ^ - [E=CI_ENV:development]
+</IfModule>
+<FilesMatch .env>
+Order allow,deny
+Deny from all
+</FilesMatch>

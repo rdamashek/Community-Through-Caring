@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Goalpost | Login</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+		  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+		  crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="../assets/css/auth.css">
+	<link rel="stylesheet" href="../assets/css/nav.css">
+	<style>
+		.navbar-nav li {
+			padding: 0 10px;
+		}
+	</style>
+	<style>
+		.auth-container input.main-single-inp {
+			width: 433px;
+			margin: auto;
+			margin-top: 50px;
+			background-color: #ffffff00;
+			height: 50px;
+			border: none;
+			border-bottom: 2px solid #ffffff;
+			border-radius: 0;
+			color: #fff;
+			outline: none;
+			font-size: 25px;
+			text-align: center;
+			box-shadow: none !important;
+			max-width: 100%;
+		}
+
+		.auth-container h2.main-heading {
+			font-size: 85px;
+			font-weight: 600;
+			color: #fff
+		}
+
+		.auth-container h2.sub-heading {
+			font-size: 45px;
+			font-weight: 600;
+			color: #fff
+		}
+
+		.auth-container h3.heading-small {
+			font-size: 22px;
+			font-weight: 300;
+			color: #fff;
+			max-width: 800px;
+			margin: auto;
+		}
+
+		.auth-container input.main-single-inp::placeholder {
+			color: #ffffff70;
+		}
+
+		.auth-container a.next-btn-circle {
+			display: block;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background-color: #fff;
+			color: #4caf9d;
+			line-height: 53px;
+			text-align: center;
+			margin: auto;
+			margin-top: 28px;
+			border: 2px solid white;
+			padding-left: 2px;
+			transition: all 0.3s;
+
+		}
+
+		.auth-container a.next-btn-circle:hover {
+			padding-left: 10px;
+			transition: all 0.3s;
+		}
+
+		.auth-container a.next-btn-circle > i {
+			font-size: 23px;
+		}
+
+		@media (max-width: 700px) {
+			.auth-container h2.main-heading {
+				font-size: 60px;
+			}
+
+			.auth-container h3 {
+				font-size: 22px;
+				font-weight: 400;
+			}
+
+		}
+
+		.form-control{
+			background-color: #5abfac;
+		}
+
+		.btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active,.btn-primary:not(:disabled):not(.disabled):active {
+			color: #fff;
+			background-color: #4caf9d;
+			border-color: #ffffff;
+		}
+
+		.btn-primary {
+			color: #fff;
+			background-color: #5abfac;
+			border-color: #42a896;
+			display: block;
+			width: 100%;
+			margin-top: 23px;
+		}
+	</style>
+</head>
+<body style="background-color: #4caf9d;">
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../welcome">GoalPost</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+			<ul class="navbar-nav ml-auto">
+
+				<li class="nav-item">
+					<a class="nav-link" href="../welcome/offers"><i class="fa fa-earth"></i> Offers</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="../welcome/needs"><i class="fa fa-heart"></i> Needs</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#"><i class="fa fa-comments"></i> Chat</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="../member"><i class="fa fa-user"></i> Sign in</a>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</nav>
+
+<div class="container text-center " style="margin-top: 15vh">
+	<div class="col-md-8" style="margin: auto; color: white; text-align: left">
+
+		<img style="width: 100%; max-height: 600px; object-fit: cover" src="https://media.wired.com/photos/6116c71586407d6dcacb9272/4:3/w_1720,h_1290,c_limit/Gear-Cannondale-Adventure-Neo-3.jpg">
+		<h3 style="margin-top: 25px">I need a bike <span style="float: right;font-size: 13px;line-height: 35px;color: #d4fff7;font-style: italic;font-weight: normal;"><i class="fa fa-clock"></i> 2 days ago</span></h3>
+		<p>Sed fringilla mauris sit amet nibh. Nunc nonummy metus. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Nullam accumsan lorem in dui.
+			<br/>
+			Nulla consequat massa quis enim. Phasellus a est. Etiam feugiat lorem non metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor.</p>
+
+		<div>
+			<h5>Details</h5>
+
+		</div>
+
+	</div>
+</div>
+
+
+<!--<footer><span style="color: #999;" >Copyrights &copy; 2022. Designed & Developed by Lipsum Technologies &reg; Pvt Ltd</span></footer>-->
+</body>
+</html>
