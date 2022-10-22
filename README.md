@@ -1,5 +1,5 @@
 # Offers-and-Needs
-An Open Source Web Mobile App for Strengthening Small Group and Community Relationships through Caring for Each Other's Needs
+An Open Source Web Mobile App for supporting ongoing live meetings (either in-person or online) in small communities where offers and needs are shared and matched. This app is not meant to be a stand-alone app for sharing offers and needs. It is meant to be used by communities who are meeting and exchanging offers and needs. It is simply a place to store the offers and needs that are shared. 
 
 ## Installation
 
