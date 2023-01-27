@@ -1,6 +1,6 @@
 # Community through Caring
 ## About the project
-An Open Source Web Mobile App for supporting ongoing live meetings (either in-person or online) in small communities where offers and needs are shared and matched. This app is not meant to be a stand-alone app for sharing offers and needs. It is meant to be used by communities who are meeting and exchanging offers and needs. It is simply a place to store the offers and needs that are shared. 
+An Open Source Web Mobile App for supporting ongoing live meetings (either in-person or online) in small communities where offers and needs are shared and matched. This app is not meant to be a stand-alone app for sharing offers and needs. It is meant to be used by communities who are meeting and exchanging offers and needs. It is simply a place to store the offers and needs that are shared.
 
 
 ## Getting Started
@@ -22,23 +22,27 @@ environment running. Please follow the installation process carefully.
 1. To clone the project in your system, run:
 
 ```
-$ git clone git@github.com:goby-lang/sample-web-app.git
-cd 
+ git clone https://github.com/rdamashek/Community-Through-Caring.git
+```
+2. Once the directory is cloned, navigate to the directory using the command:
+```
+ cd Community-Through-Caring/MAIN
 ```
 
-2. Run composer command to install dependencies:
+3. Run composer command to install dependencies:
 
 ```
-$ composer install
+ composer update
 ```
 
-After successful attemp, you should see all dependencies being installed and now the system is ready to be configured.
+After successful attempt, you should see all dependencies being installed and now the system is ready to be configured.
+NOTE that the code is in `/MAIN` directory
 
 ### Setting up the database
 Please follow these steps to install the database to your local server.
 
 - Open your local database server, like `localhost/phpmyadmin` and create a new database named `community_caring`
-- Once the database is created, uplaod the database file. You can find the database file in `/Database/community_caring.sql` directory of your project.  
+- Once the database is created, uplaod the database file. You can find the database file in `/Database/community_caring.sql` directory of your project.
 
 
 
@@ -52,14 +56,23 @@ You will need to add the following environment variables to your `/.env` file . 
 
 - `DB_HOSTNAME` Your database hostname. In most cases its `localhost`
 
-- `DB_USERNAME` Your database username. 
+- `DB_USERNAME` Your database username.
 
-- `DB_PASSWORD` Your database password. 
+- `DB_PASSWORD` Your database password.
 
 - `DB_DATABASE` Your database name. In this case its `community_caring`
 
 Once we get the database setup, we can do some optional configurations for the SMTP/ Mail server as listed in the .env file.
-    
+
+## Testing
+Navigate to `/admin` URL and use the following credentials to login:
+
+- Email: `admin@admin.com`
+- Password: `123456`
+
+For basic account, you can register a new account directly from homepage.
+
+
 ## Color Reference
 
 | Color             | Hex                                                                |
