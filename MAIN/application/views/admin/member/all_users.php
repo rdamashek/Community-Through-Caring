@@ -6,35 +6,61 @@
 	.modal-backdrop.fade:not(.show) {
 		opacity: 0.5;
 	}
-	
 </style>
 
 <div class="col-md-10 offset-md-2">
+
+	
+
+
+
 	<div class="container" style="background-color: white; margin-top: 75px; padding: 15px; border-radius: 25px;">
-		<h2 style="padding-top: 50px" class="text-center"><?php echo $language['my_offers_page_my_offers'] ?></h2>
+	<?php
+	if ($this->session->flashdata('true')) {
+	?>
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<?php echo $this->session->flashdata('true'); ?>
+		</div>
+	<?php
+	} else if ($this->session->flashdata('err')) {
+	?>
+		<div class="alert alert-success">
+			<?php echo $this->session->flashdata('err'); ?>
+		</div>
+	<?php } ?>
+
+		<h2 style="padding-top: 50px" class="text-center">Users Management</h2>
 
 		<table class="table" id="goals_table">
 			<thead>
 				<tr>
 					<th>#</th>
-					<th><?php echo $language['my_offers_page_offer_name'] ?></th>
-					<th><?php echo $language['my_offers_page_description'] ?></th>
-					<th><?php echo $language['my_offers_page_date_create'] ?></th>
-					<th><?php echo $language['my_offers_page_action'] ?></th>
+					<th><?php //echo $language['my_offers_page_offer_name'] 
+						?>Name</th>
+					<th><?php //echo $language['my_offers_page_description'] 
+						?>Email</th>
+					<!-- <th><?php //echo $language['my_offers_page_date_create'] 
+								?>Photo</th> -->
+					<th><?php //echo $language['my_offers_page_action'] 
+						?>Phone</th>
+					<th><?php //echo $language['my_offers_page_action'] 
+						?>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
 				$count = 0;
-				foreach ($goals as $goal) {
+				foreach ($users as $user) {
 					$count++;
 				?>
 					<tr>
 						<td><?php echo $count; ?></td>
-						<td><?php echo $goal['name']; ?></td>
-						<td><?php echo mb_strimwidth($goal['description'], 0, 60, '...'); ?></td>
-						<td><?php echo date('d M Y', strtotime($goal['date_created'])); ?></td>
-						<td><a href="<?php echo base_url('admin/edit_offer/' . $goal['id']); ?>"><i class="fa fa-edit" style="color: #268171;"></i></a> &nbsp; <a onclick="delete_offer(<?php echo $goal['id']; ?>);" href="#"><i class="fa fa-trash" style="color: #268171;"></i> </a></td>
+						<td><?php echo $user['name']; ?></td>
+						<td><?php echo $user['email']; ?></td>
+						<td><?php echo $user['phone']; ?></td>
+
+						<td><a href="<?php echo base_url('admin/edit_user/' . $user['id']); ?>"><i class="fa fa-edit" style="color: #268171;"></i></a> &nbsp; <a onclick="delete_user(<?php echo $user['id']; ?>);" href="#"><i class="fa fa-trash" style="color: #268171;"></i> </a></td>
 					</tr>
 				<?php
 				}
@@ -49,6 +75,8 @@
 
 
 </div>
+
+
 
 <script>
 	window.onload = function() {
@@ -90,7 +118,7 @@
 		});
 	}
 
-	function delete_offer($id) {
+	function delete_user($id) {
 		$("body").overhang({
 			type: "confirm",
 			primary: "#40D47E",
@@ -101,7 +129,7 @@
 			callback: function(value) {
 
 				if (value) {
-					window.location = '<?php echo base_url('admin/delete_offer/'); ?>' + $id;
+					window.location = '<?php echo base_url('admin/delete_user/'); ?>' + $id;
 				}
 			}
 		});

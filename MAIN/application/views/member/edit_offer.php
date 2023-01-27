@@ -160,6 +160,10 @@
 							   >
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['edit_offer_page_city']; ?></span>
 
+						<input type="text" class="form-control main-single-inp" name="address[state_province]" value="<?php echo $address['state_province']; ?>" placeholder="<?php echo $language['edit_offer_page_placeholder_state_province']; ?>"
+							   >
+						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['edit_offer_page_state_province']; ?></span>
+
 						<input type="text" class="form-control main-single-inp" name="address[zip]" value="<?php echo $address['zip']; ?>" placeholder="<?php echo $language['edit_offer_page_placeholder_zip']; ?>"
 							   >
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['edit_offer_page_zip_code']; ?></span>
@@ -168,9 +172,6 @@
 							   >
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['edit_offer_page_county']; ?></span>
 
-						<input type="text" class="form-control main-single-inp" name="address[country]" value="<?php echo $address['country']; ?>" placeholder="<?php echo $language['edit_offer_page_placeholder_country']; ?>"
-							   >
-						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['edit_offer_page_country']; ?></span>
 
 						<select class="form-control main-single-inp" name="address[region]" value="<?php echo $address['region']; ?>" >
 							<option><?php echo $language['edit_offer_page_select_region_locality']; ?></option>
@@ -180,6 +181,13 @@
 							<option><?php echo $language['edit_offer_page_select_region_world']; ?></option>
 						</select>
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['edit_offer_page_region']; ?></span>
+						
+
+						<input type="text" class="form-control main-single-inp" name="address[country]" value="<?php echo $address['country']; ?>" placeholder="<?php echo $language['edit_offer_page_placeholder_country']; ?>"
+							   >
+						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['edit_offer_page_country']; ?></span>
+
+						
 
 						<input type="text" class="form-control main-single-inp" name="address[distance]" value="<?php echo $address['distance']; ?>" placeholder="<?php echo $language['edit_offer_page_distance']; ?>" value="0"
 							   >
@@ -203,7 +211,7 @@
 
 					<div style="text-align: center;margin-top: 25px;">
 						<label>
-							<input id="agree_check" name="contact[is_public]" value="<?php echo $contact['is_public']; ?>" type="checkbox" style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> <?php echo $language['edit_offer_page_display_my_contact_detail_on_listing']; ?>
+							<input id="" name="contact[is_public]" value="1" type="checkbox" <?php echo($contact['is_public']=='1')? 'checked="checked"' : '' ?> style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> <?php echo $language['edit_offer_page_display_my_contact_detail_on_listing']; ?>
 						</label>
 					</div>
 
@@ -219,7 +227,7 @@
 
 
 					<div style="text-align: center;margin-top: 25px;">
-						<input id="agree_check" type="checkbox" style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> <?php echo $language['edit_offer_page_i_agree']; ?> <a href="#" style="text-decoration: none;color: #b8efe5;"> <?php echo $language['edit_offer_page_terms_and_condition']; ?></a>
+						<input id="agree_check" value="1" type="checkbox" style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> <?php echo $language['edit_offer_page_i_agree']; ?> <a href="#" style="text-decoration: none;color: #b8efe5;"> <?php echo $language['edit_offer_page_terms_and_condition']; ?></a>
 					</div>
 
 					<div style="text-align: center;margin-top: 30px;">

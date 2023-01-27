@@ -181,10 +181,25 @@
 	.alert-warning {
 		color: #810000;
 		background-color: #4caf9d;
-		border-color: #810000;
+		border-color: #810000; 
 	}
 </style>
 <div class="container text-center offset-md-2 col-md-10 auth-container" style="margin-top: 5vh;">
+
+<?php
+	if ($this->session->flashdata('true')) {
+	?>
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<?php echo $this->session->flashdata('true'); ?>
+		</div>
+	<?php
+	} else if ($this->session->flashdata('err')) {
+	?>
+		<div class="alert alert-success">
+			<?php echo $this->session->flashdata('err'); ?>
+		</div>
+	<?php } ?>
 	<div class="col-md-8" style="margin: auto; color: white">
 		<h3 class="text-center"><?php echo $language['account_setting_page']; ?></h3>
 

@@ -86,15 +86,18 @@ class Welcome extends CI_Controller
 		$data['goal'] = $this->db->where('id', $goal_id)->get('goals')->result_array()[0];
 
 		$data['goal']['address'] = @$this->db->where('goal_id', $goal_id)->get('area_shared')->result_array()[0];
+		$data['goal']['period'] = @$this->db->where('goal_id', $goal_id)->get('time_period')->result_array()[0];
 
 		$data['goal']['contact'] = @$this->db->select('contact.*')->where('goal_id', $goal_id)->join('contact', 'goal_contact.contact_id=contact.id')->get('goal_contact')->result_array()[0];
+		$data['goal']['is_fav'] = '0';
 
-		$is_fav = $this->db->where('goal_id', $goal_id)->get('fav')->num_rows();
-		if ($is_fav > 0) {
-			$data['goal']['is_fav'] = '1';
-		} else {
-			$data['goal']['is_fav'] = '0';
+		if(isset($_SESSION['user']['id'])){
+			$is_fav = $this->db->where('goal_id', $goal_id)->where('member_id', $_SESSION['user']['id'])->get('fav')->num_rows();
+			if ($is_fav > 0) {
+				$data['goal']['is_fav'] = '1';
+			}
 		}
+
 
 		$this->load->view('global/header', $data);
 		$this->load->view('global/nav', $data);
@@ -124,11 +127,14 @@ class Welcome extends CI_Controller
 
 		$data['goal']['contact'] = $this->db->select('contact.*')->where('goal_id', $goal_id)->join('contact', 'goal_contact.contact_id=contact.id')->get('goal_contact')->result_array()[0];
 
-		$is_fav = $this->db->where('goal_id', $goal_id)->get('fav')->num_rows();
-		if ($is_fav > 0) {
-			$data['goal']['is_fav'] = '1';
-		} else {
-			$data['goal']['is_fav'] = '0';
+
+		$data['goal']['is_fav'] = '0';
+
+		if(isset($_SESSION['user']['id'])){
+			$is_fav = $this->db->where('goal_id', $goal_id)->where('member_id', $_SESSION['user']['id'])->get('fav')->num_rows();
+			if ($is_fav > 0) {
+				$data['goal']['is_fav'] = '1';
+			}
 		}
 
 
@@ -164,7 +170,7 @@ class Welcome extends CI_Controller
 		// 	'smtp_host' => 'mail.lipsumtechnologies.com',
 		// 	'smtp_port' => 465,
 		// 	'smtp_user' => 'ghanikhan137@gmail.com',
-		// 	'smtp_pass' => 'khange6060',
+		// 	'smtp_pass' => '',
 		// 	// 'smtp_user' => 'noreply@lipsumtechnologies.com <noreply@lipsumtechnologies.com>',
 		// 	// 'smtp_pass' => 'E!Eu=p9F*1i4',
 		// 	'mailtype'  => 'html',
@@ -173,7 +179,27 @@ class Welcome extends CI_Controller
 
 
 		$this->load->model('Common');
-		$this->Common->send_email($to, $name . ' has contacted you through '. $data['language']['app_name_goalpost'], $message, $email, $name);
+
+
+		$template = get_email_template('contact');
+		$body = $template['body'];
+		$subject = $template['subject'];
+
+		$body = str_replace('{{contact_user_name}}', $name, $body);
+		$body = str_replace('{{goal_name}}', $goal['name'], $body);
+		$body = str_replace('{{name}}', $member['name'], $body);
+		$body = str_replace('{{offer_or_need}}', $goal['type'], $body);
+		$body = str_replace('{{message_content}}', $message, $body);
+
+		$subject = str_replace('{{contact_user_name}}', $name, $subject);
+		$subject = str_replace('{{goal_name}}', $goal['name'], $subject);
+		$subject = str_replace('{{name}}', $member['name'], $subject);
+		$subject = str_replace('{{offer_or_need}}', $goal['type'], $subject);
+		$subject = str_replace('{{message_content}}', $message, $subject);
+
+
+
+		$this->Common->send_email($to, $subject, $body, $email, $name);
 	}
 	// =============send email code end===============
 
@@ -255,7 +281,7 @@ class Welcome extends CI_Controller
 
 		$data['title'] = 'Public chat';
 
-		$data['messages'] = $this->db->select('chat.*, member.name, member.photo')->join('member', 'member.id=chat.from')->get('chat')->result_array();
+		$data['messages'] = $this->db->select('chat.*, member.name, member.signup_date as join_date, member.photo')->join('member', 'member.id=chat.from')->get('chat')->result_array();
 
 		$this->load->view('global/header', $data);
 		$this->load->view('global/nav', $data);
@@ -445,22 +471,24 @@ class Welcome extends CI_Controller
 			$this->db->where('email', $email);
 			$this->db->update('member', $newpass);
 
-			$message = 'Hi' . $member['name'] . '!\n It looks like you requested for password reset. Here\'s the password reset code: <b>' . $passwordplain . '</b>';
+
+
+
+
+
+			$template = get_email_template('forgot');
+			$body = $template['body'];
+			$subject = $template['subject'];
+
+			$body = str_replace('{{name}}', $member['name'], $body);
+			$body = str_replace('{{reset_code}}', $passwordplain, $body);
+
+			$subject = str_replace('{{name}}', $member['name'], $subject);
+			$subject = str_replace('{{reset_code}}', $passwordplain, $subject);
 
 
 			$this->load->model('Common');
-
-			$email_content = $jsonLanguage['language']['controller_sendpassword_email_message'];
-			$email_content = str_replace('{{name}}', $member['name'], $email_content);
-			$email_content = str_replace('{{otp_code}}', $newpass['auth_code'], $email_content);
-			$email_content = str_replace('{{app_name}}', $jsonLanguage['language']['app_name_goalpost'], $email_content);
-
-				$subject = $jsonLanguage['language']['controller_sendpassword_email_subject'];
-
-
-			$result = $this->Common->send_email($member['email'], $subject, $email_content, '', '');
-
-
+			$result = $this->Common->send_email($member['email'], $subject, $body, '', '');
 
 
 
@@ -556,4 +584,19 @@ class Welcome extends CI_Controller
 		}
 		echo json_encode($ret);
 	}
+
+
+	public function about_us(){
+		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		$data['title'] = 'About Us';
+
+		$this->load->view('global/header', $data);
+		$this->load->view('global/nav', $data);
+		$this->load->view('about_us', $data);
+		$this->load->view('global/footer', $data);
+	}
 }
+
+
+?>
+

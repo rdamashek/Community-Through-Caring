@@ -2,7 +2,7 @@
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 
 <style>
-	.option-div > label {
+	.option-div>label {
 		cursor: pointer;
 	}
 
@@ -14,7 +14,7 @@
 		display: block;
 	}
 
-	.option-div.checked > label {
+	.option-div.checked>label {
 		background-color: #328173 !important;
 	}
 
@@ -26,46 +26,48 @@
 		background-color: #268171 !important;
 	}
 
-	div#address_detail input, div#address_detail select {
+	div#address_detail input,
+	div#address_detail select {
 		margin-top: 3px;
 		border-bottom: 1px solid;
 		width: 72%;
 		font-size: 20px;
 		height: 35px;
 	}
+
 	div#address_detail {
 		margin-top: 35px;
 	}
+
 	div#address_detail span {
 		text-align: left !important;
 		width: 70% !important;
 		margin: auto;
 	}
-	select option{
-		color: #fff; background-color: #44c0aa
+
+	select option {
+		color: #fff;
+		background-color: #44c0aa
 	}
 </style>
-<div class="auth-container "
-	 style="max-width: 600px; margin: auto; margin-top: 200px; color: white; padding: 25px; background-color: #369382; border-radius: 18px;">
+<div class="auth-container " style="max-width: 600px; margin: auto; margin-top: 200px; color: white; padding: 25px; background-color: #369382; border-radius: 18px;">
 
-	<form id="goal_form"  method="post" enctype="multipart/form-data">
-
+	<form id="goal_form" method="post" enctype="multipart/form-data">
 
 
-		<div class="step" >
 
-			<div class="spt-container need_steps" >
+		<div class="step">
 
-<input type="hidden" name="goal[type]" value="need">
+			<div class="spt-container need_steps">
+
+				<input type="hidden" name="goal[type]" value="need">
 				<div class="single-step">
 					<h3 class="text-center">
-					<?php echo $language['create_need_page_heading']; ?>
+						<?php echo $language['create_need_page_heading']; ?>
 					</h3>
 
 
-					<input type="text" class="form-control main-single-inp" name="goal[name]"
-						   placeholder="<?php echo $language['create_need_page_goal_name_placeholder']; ?>"
-						   >
+					<input type="text" class="form-control main-single-inp" name="goal[name]" required="required" placeholder="<?php echo $language['create_need_page_goal_name_placeholder']; ?>">
 					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_enter_title_need']; ?></span>
 
 
@@ -74,29 +76,53 @@
 					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_enter_need_description']; ?></span>
 
 
-					<input type="hidden" name="goal[cost]" value="price">
+
+
+
+
+
+					<select onchange="show_payment_options(this);" class="form-control main-single-inp" name="goal[cost]">
+						<option disabled selected><?php echo $language['create_need_page_select_option']; ?></option>
+						<option value="price" style="color: #fff; background-color: #44c0aa"><?php echo $language['create_need_page_select_option_price']; ?></option>
+						<option value="barter" style="color: #fff; background-color: #44c0aa"><?php echo $language['create_need_page_select_option_barter']; ?></option>
+						<option value="free" style="color: #fff; background-color: #44c0aa"><?php echo $language['create_need_page_select_option_free']; ?></option>
+					</select>
+					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_select_option_span_info']; ?></span>
+
+					<div id="barter_option" style="display: none">
+						<input type="text" id="offer_price" class="form-control main-single-inp" name="goal[barter_details]" placeholder="">
+						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_enter_barter_detail']; ?></span>
+					</div>
+					<div id="price_option" style="display: none">
+						<input type="hidden" name="goal[cost]" value="price">
+						<input type="text" class="form-control main-single-inp" name="goal[price]" placeholder="$700">
+						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_enter_budget_need']; ?></span>
+					</div>
+
+
+
+
+					<!-- <input type="hidden" name="goal[cost]" value="price">
 					<input type="text" class="form-control main-single-inp" name="goal[price]" placeholder="$700"
 						   >
-					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_enter_budget_need']; ?></span>
+					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php //echo $language['create_need_page_span_enter_budget_need']; 
+																														?></span> -->
 
-					<select onchange="show_options(this);" class="form-control main-single-inp" name="period[type]"
-							>
+					<select onchange="show_options(this);" class="form-control main-single-inp" name="period[type]">
 						<option disabled selected><?php echo $language['create_need_page_select_urgency']; ?></option>
 						<option value="asap" style="color: #fff; background-color: #44c0aa"><?php echo $language['create_need_page_select_urgency_asap']; ?></option>
 						<option value="before" style="color: #fff; background-color: #44c0aa"><?php echo $language['create_need_page_select_urgency_before']; ?></option>
 						<option value="recurring" style="color: #fff; background-color: #44c0aa"><?php echo $language['create_need_page_select_urgency_recurring']; ?></option>
-						<option value="period" style="color: #fff; background-color: #44c0aa"><?php echo $language['create_need_page_select_urgency_after']; ?></option>
+						<option value="after" style="color: #fff; background-color: #44c0aa"><?php echo $language['create_need_page_select_urgency_after']; ?></option>
 					</select>
 					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_soon_need']; ?></span>
 
 					<div class="form-group start_date" style="display: none">
-						<input type="date" class="form-control main-single-inp" autocomplete="false"
-							   name="period[start_date]" id="userName">
+						<input type="date" class="form-control main-single-inp" autocomplete="false" name="period[start_date]" id="userName">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_select_start_date']; ?></span>
 					</div>
 					<div class="form-group days" style="display: none">
-						<select id="choices-multiple-remove-button" class="main-single-inp" name="period[day][]"
-								placeholder="<?php echo $language['create_need_page_select_day']; ?>" multiple>
+						<select id="choices-multiple-remove-button" class="main-single-inp" name="period[day][]" placeholder="<?php echo $language['create_need_page_select_day']; ?>" multiple>
 							<option><?php echo $language['create_need_page_select_day_sunday']; ?></option>
 							<option><?php echo $language['create_need_page_select_day_monday']; ?></option>
 							<option><?php echo $language['create_need_page_select_day_tuesday']; ?></option>
@@ -111,15 +137,12 @@
 
 
 					<div class="form-group end_date" style="display: none">
-						<input type="date" class="form-control main-single-inp" autocomplete="false"
-							   name="period[end_date]" id="userName">
+						<input type="date" class="form-control main-single-inp" autocomplete="false" name="period[end_date]" id="userName">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_select_end_date']; ?></span>
 					</div>
 
 
-					<a href="#" class="next-btn-circle" style="font-size: 38px"
-					   onclick="$(this).parents('.single-step').hide().next('.single-step').show();"><i
-							class="fa fa-angle-right" style="font-size: 38px"></i></a>
+					<a href="#" class="next-btn-circle" style="font-size: 38px" onclick="$(this).parents('.single-step').hide().next('.single-step').show();"><i class="fa fa-angle-right" style="font-size: 38px"></i></a>
 				</div>
 
 				<div class="single-step" style="display: none">
@@ -131,7 +154,7 @@
 
 
 					<label style="height: 165px;border: 25px; display: block; width: 100%;text-align: center;font-size: 25px;padding: 20px 0;background-color: #288171;border-radius: 25px;opacity: 0.8;margin: 30px 0;border: 2px dashed;">
-					<?php echo $language['create_need_page_add_click_drag_upload']; ?><br>
+						<?php echo $language['create_need_page_add_click_drag_upload']; ?><br>
 						<i class="fa fa-file-upload" style="font-size: 50px;padding-top: 20px;"></i>
 						<input id="file_input" onchange="readURL(this);" type="file" name="goal_image" style="display: none;">
 					</label>
@@ -139,11 +162,9 @@
 						<h5><?php echo $language['create_need_page_preview']; ?></h5>
 
 						<i class="fa fa-close" onclick="reset_img();" style="border: 2px solid white;border-radius: 50%;width: 20px;height: 20px;position: relative;bottom: -3px; cursor: pointer"></i>
-					<img id="blah" src="http://placehold.it/180" alt="your image" style=" max-width: 100%; height: 250px; margin: auto; display: block; border-radius: 25px; border: 3px solid #1f6458; opacity: 0.8;"/>
+						<img id="blah" src="http://placehold.it/180" alt="your image" style=" max-width: 100%; height: 250px; margin: auto; display: block; border-radius: 25px; border: 3px solid #1f6458; opacity: 0.8;" />
 					</div>
-					<a href="#" class="next-btn-circle" style="font-size: 38px"
-					   onclick="$(this).parents('.single-step').hide().next('.single-step').show();"><i
-								class="fa fa-angle-right" style="font-size: 38px"></i></a>
+					<a href="#" class="next-btn-circle" style="font-size: 38px" onclick="$(this).parents('.single-step').hide().next('.single-step').show();"><i class="fa fa-angle-right" style="font-size: 38px"></i></a>
 				</div>
 
 
@@ -157,43 +178,37 @@
 					</h3>
 
 
-					<select class="form-control main-single-inp goal_delivery_type" id="goal_delivery_type" name="goal[delivery_type]" >
+					<select class="form-control main-single-inp goal_delivery_type" id="goal_delivery_type" name="goal[delivery_type]">
 						<option disabled selected><?php echo $language['create_need_page_select_address_type']; ?></option>
 						<option style="color: #fff; background-color: #44c0aa" value="virtual"><?php echo $language['create_need_page_select_address_type_virtual']; ?></option>
 						<option style="color: #fff; background-color: #44c0aa" value="address"><?php echo $language['create_need_page_select_address_type_address']; ?></option>
 					</select>
 					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_please_select_address_type']; ?></span>
 
-					<textarea id="address_inp_field" class="form-control main-single-inp address_inp_field"
-							  style="display:none;margin-top: 10px;height: 90px;"
-							  placeholder="<?php echo $language['create_need_page_please_enter_the_goal_delivery_location']; ?>" autocomplete="false"
-							  name="goal[deliery_location]"></textarea>
+					<textarea id="address_inp_field" class="form-control main-single-inp address_inp_field" style="display:none;margin-top: 10px;height: 90px;" placeholder="<?php echo $language['create_need_page_please_enter_the_goal_delivery_location']; ?>" autocomplete="false" name="goal[deliery_location]"></textarea>
 
 
 					<div id="address_detail" style="display:none;">
 
-						<input type="text" class="form-control main-single-inp" name="address[address]" placeholder="<?php echo $language['create_nees_page_placeholder_address']; ?>"
-							   >
+						<input type="text" class="form-control main-single-inp" name="address[address]" placeholder="<?php echo $language['create_nees_page_placeholder_address']; ?>">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_street_address']; ?></span>
 
-						<input type="text" class="form-control main-single-inp" name="address[city]" placeholder="<?php echo $language['create_need_page_placeholder_city']; ?>"
-							   >
+						<input type="text" class="form-control main-single-inp" name="address[city]" placeholder="<?php echo $language['create_need_page_placeholder_city']; ?>">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_city']; ?></span>
 
-						<input type="text" class="form-control main-single-inp" name="address[zip]" placeholder="<?php echo $language['create_need_page_placeholder_zip']; ?>"
-							   >
+
+						<input type="text" class="form-control main-single-inp" name="address[state_province]" placeholder="<?php echo $language['create_need_page_placeholder_state_province']; ?>">
+						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_state_province']; ?></span>
+
+
+
+						<input type="text" class="form-control main-single-inp" name="address[zip]" placeholder="<?php echo $language['create_need_page_placeholder_zip']; ?>">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_zip_code']; ?></span>
 
-						<input type="text" class="form-control main-single-inp" name="address[county]" placeholder="<?php echo $language['create_need_page_placeholder_county']; ?>"
-							   >
+						<input type="text" class="form-control main-single-inp" name="address[county]" placeholder="<?php echo $language['create_need_page_placeholder_county']; ?>">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_county']; ?></span>
-
-						<input type="text" class="form-control main-single-inp" name="address[country]" placeholder="<?php echo $language['create_need_page_placeholder_county']; ?>"
-							   >
-						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_county']; ?></span>
-
-						<select class="form-control main-single-inp" name="address[region]" >
-						<option><?php echo $language['create_need_page_select_address_region_locality']; ?></option>
+						<select class="form-control main-single-inp" name="address[region]">
+							<option><?php echo $language['create_need_page_select_address_region_locality']; ?></option>
 							<option selected><?php echo $language['create_need_page_select_address_region_county']; ?></option>
 							<option><?php echo $language['create_need_page_select_address_region_nation']; ?></option>
 							<option><?php echo $language['create_need_page_select_address_region_continent']; ?></option>
@@ -201,17 +216,20 @@
 						</select>
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_region']; ?></span>
 
-						<input type="text" class="form-control main-single-inp" name="address[distance]" placeholder="<?php echo $language['create_need_page_input_distance']; ?>" value="0"
-							   >
+
+						<input type="text" class="form-control main-single-inp" name="address[country]" placeholder="<?php echo $language['create_need_page_placeholder_country']; ?>">
+						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_country']; ?></span>
+
+
+
+						<input type="text" class="form-control main-single-inp" name="address[distance]" placeholder="<?php echo $language['create_need_page_input_distance']; ?>" value="0">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_span_how_miles_message']; ?> </span>
 
 					</div>
 
 
 
-					<a href="#" class="next-btn-circle" style="font-size: 38px"
-					   onclick="$(this).parents('.single-step').hide().next('.single-step').show();"><i
-								class="fa fa-angle-right" style="font-size: 38px"></i></a>
+					<a href="#" class="next-btn-circle" style="font-size: 38px" onclick="$(this).parents('.single-step').hide().next('.single-step').show();"><i class="fa fa-angle-right" style="font-size: 38px"></i></a>
 				</div>
 
 				<div class="single-step" style="display: none">
@@ -224,17 +242,15 @@
 
 					<div style="text-align: center;margin-top: 25px;">
 						<label>
-						<input id="agree_check" name="contact[is_public]" value="1" type="checkbox" style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> <?php echo $language['create_need_page_display_contact_detail']; ?>
+							<input id="agree_check" name="contact[is_public]" value="1" type="checkbox" style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> <?php echo $language['create_need_page_display_contact_detail']; ?>
 						</label>
 					</div>
 
 
-					<input type="text" class="form-control main-single-inp" name="contact[name]" placeholder="<?php echo $language['create_need_page_name_palceholder']; ?>"
-						   style="margin-top: 25px;">
+					<input type="text" class="form-control main-single-inp" name="contact[name]" placeholder="<?php echo $language['create_need_page_name_palceholder']; ?>" style="margin-top: 25px;">
 					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_display_name']; ?></span>
 
-					<input type="text" class="form-control main-single-inp" name="contact[email]" placeholder="<?php echo $language['create_need_page_email_palceholder']; ?>"
-						   >
+					<input type="text" class="form-control main-single-inp" name="contact[email]" placeholder="<?php echo $language['create_need_page_email_palceholder']; ?>">
 					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;"><?php echo $language['create_need_page_primary_contact_email']; ?></span>
 
 
@@ -246,10 +262,7 @@
 
 					<div style="text-align: center;margin-top: 30px;">
 
-						<a href="#" class="next-btn-circle"
-						   style="text-decoration: none;font-size: 38px;width: auto;border-radius: 25px;display: inline-block;padding: 0px 30px;margin: auto;display: inline-block;font-size: 25px;"
-						   onclick="post_goal();"><i
-									class="fa fa-check" style="font-size: 25px;"></i> <?php echo $language['create_need_page_post_my_need']; ?></a>
+						<a href="#" class="next-btn-circle" style="text-decoration: none;font-size: 38px;width: auto;border-radius: 25px;display: inline-block;padding: 0px 30px;margin: auto;display: inline-block;font-size: 25px;" onclick="post_goal();"><i class="fa fa-check" style="font-size: 25px;"></i> <?php echo $language['create_need_page_post_my_need']; ?></a>
 					</div>
 				</div>
 
@@ -266,7 +279,6 @@
 
 
 <script>
-
 	function show_options($this) {
 		$val = $($this).val();
 		console.log($val);
@@ -280,9 +292,9 @@
 			$('.form-group.end_date').show();
 			$('.form-group.days').hide();
 		}
-		if ($val == 'period') {
+		if ($val == 'after') {
 			$('.form-group.start_date').show();
-			$('.form-group.end_date').show();
+			$('.form-group.end_date').hide();
 			$('.form-group.days').hide();
 		}
 		if ($val == 'recurring') {
@@ -296,7 +308,7 @@
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 
-			reader.onload = function (e) {
+			reader.onload = function(e) {
 				$('#blah')
 					.attr('src', e.target.result);
 				$('#image_preview').show();
@@ -306,7 +318,7 @@
 		}
 	}
 
-	function reset_img(){
+	function reset_img() {
 		$('#image_preview').hide();
 		$('#file_input').val(null);
 	}
@@ -323,7 +335,7 @@
 		}
 	}
 
-	$(document).ready(function () {
+	$(document).ready(function() {
 
 		var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
 			removeItemButton: true,
@@ -332,7 +344,7 @@
 			renderChoiceLimit: 7
 		});
 
-		$('.back-step-btn').on('click', function (e){
+		$('.back-step-btn').on('click', function(e) {
 			$('.single-step').hide();
 			$(this).parents('.single-step').prev('.single-step').show();
 		})
@@ -340,21 +352,21 @@
 
 
 
-	function post_goal(){
+	function post_goal() {
 		$form = new FormData($('#goal_form')[0])
 		$.ajax({
-			url:'<?php echo base_url('member/save_new_need'); ?>',
-			type:'post',
-			cache:false,
+			url: '<?php echo base_url('member/save_new_need'); ?>',
+			type: 'post',
+			cache: false,
 			contentType: false,
 			processData: false,
-			data:$form,
-			success: function (data){
+			data: $form,
+			success: function(data) {
 				$("body").overhang({
 					type: "success",
 					message: "<?php echo $language['create_need_page_offer_posted_successfully']; ?>",
-					callback: function (value) {
-						window.location='<?php echo base_url('member/my_needs'); ?>';
+					callback: function(value) {
+						window.location = '<?php echo base_url('member/my_needs'); ?>';
 					}
 				});
 			}
@@ -363,7 +375,7 @@
 
 
 
-	$('.goal_delivery_type').on('change', function () {
+	$('.goal_delivery_type').on('change', function() {
 
 		if ($(this).val() == 'address') {
 			$('textarea.address_inp_field').html('').slideUp();

@@ -12,8 +12,9 @@
 	}
 
 	.sidenav {
+		margin-top: 40px;
 		height: 100vh;
-		width: 250px;
+		width: 320px;
 		position: fixed;
 		z-index: 10;
 		top: 0;
@@ -23,7 +24,7 @@
 		transition: 0.5s;
 		padding-top: 60px;
 		transition: all 0.5s;
-		display: none;
+		/* display: none; */
 
 	}
 
@@ -75,25 +76,7 @@
 
 	<div class="row container-fluid" style="margin-top: 50px">
 
-		<div class="sidenav-opener" onclick="$('#mySidenav').toggleClass('opened')" style="
-    position: absolute;
-    top: 70px;
-    color: white;
-    left: 2px;
-    z-index: 1;
-    display: block;
-    font-size: 20px;
-    background-color: black;
-    width: 21px;
-    border-radius: 50%;
-    height: 35px;
-    width: 35px;
-    line-height: 35px;
-    text-align: center;
-    border: 2px solid white;
-">
-			<i class="fa fa-angle-right"></i>
-		</div>
+		
 
 		<div id="mySidenav" class="sidenav col-md-2">
 			<a href="<?php echo base_url('member/my_offers'); ?>"><i class="fa fa-earth"></i> &nbsp; <?php echo $language['side_nav_myoffers_text']; ?></a>
@@ -101,23 +84,5 @@
 			<a href="<?php echo base_url('member/account_settings'); ?>"><i class="fa fa-gear"></i> &nbsp;<?php echo $language['side_nav_accountsettings_text']; ?></a>
 			<a href="<?php echo base_url('member/logout'); ?>"><i class="fa fa-power-off"></i> &nbsp;<?php echo $language['side_nav_logout_text']; ?></a>
 
-			<div class="sidenav-closer" onclick="$('#mySidenav').toggleClass('opened')" style="
-    position: absolute;
-    top: 70px;
-    color: white;
-    right: -14px;
-    z-index: 999999999;
-    display: block;
-    font-size: 20px;
-    background-color: black;
-    width: 21px;
-    border-radius: 50%;
-    height: 35px;
-    width: 35px;
-    line-height: 35px;
-    text-align: center;
-    border: 2px solid white;
-">
-				<i class="fa fa-angle-left"></i>
-			</div>
+			
 		</div>

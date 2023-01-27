@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title><?= $title; ?> | <?php echo $language['app_name_goalpost']; ?></title>
+	<title><?= $title; ?> | <?php echo get_setting_value('app_name'); ?></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
 
@@ -31,7 +31,7 @@
 
 	<style>
 		.navbar-nav li {
-			padding: 0 10px;
+			padding: 0px 10px;
 		}
 	</style>
 	<style>
@@ -182,6 +182,9 @@
 				font-size: 22px;
 				font-weight: 400;
 			}
+			.navbar-nav li {
+			padding: 8px 10px;
+		}
 
 		}
 

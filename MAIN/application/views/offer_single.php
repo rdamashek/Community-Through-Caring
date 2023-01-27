@@ -42,14 +42,27 @@
 				if ($goal['delivery_type'] == 'virtual') {
 					echo '<li class="list-group-item">Delivery Details<span class="badge" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 350px;">' . $goal['deliery_location'] . '</span></li>';
 				} elseif ($goal['delivery_type'] == 'address') {
-					echo '<li class="list-group-item">Delivery Details<span class="badge">' . $goal['address']['city'] . '</span></li>';
+					echo '<li class="list-group-item">Delivery Address<span class="badge">' . $goal['address']['address'].' '.$goal['address']['city'] . ', ' . $goal['address']['state_province'].', '. $goal['address']['county'].', '. $goal['address']['country'].' - '. $goal['address']['zip'] .  '</span></li>';
+
+					if(strlen($goal['address']['zip']) > 0){
+						echo '<li class="list-group-item">ZIP'.'<span class="badge">' .  $goal['address']['zip'] . '</span></li>';
+					}
+
+
+
+					echo '<li class="list-group-item">Available within the '.'<span class="badge">' .  ucwords($goal['address']['region']) . '</span></li>';
+
+					if($goal['address']['distance'] > 0) {
+						echo '<li class="list-group-item">Available in the area of ' . '<span class="badge">' . $goal['address']['distance'] . ' Miles</span></li>';
+					}
+
 				}
 
 
 				if ($goal['contact']['is_public'] == '1') {
 					echo '<li class="list-group-item">Contact Name<span class="badge">' . $goal['contact']['name'] . '</span></li>';
 					echo '<li class="list-group-item">Email<span class="badge"><a href="mailto:' . $goal['contact']['email'] . '">' . $goal['contact']['email'] . '</a></span></li>';
-				} else {
+				} 
 				?>
 
 
@@ -83,11 +96,7 @@
 							</div>
 						</form>
 					</div>
-				<?php
-
-				}
-
-				?>
+				
 
 			</ul>
 

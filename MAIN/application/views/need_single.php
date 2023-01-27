@@ -1,3 +1,4 @@
+
 <style>
 	.form-control,
 	.form-control:active,
@@ -21,6 +22,25 @@
 	.modal-backdrop.fade:not(.show) {
 		opacity: 0.5;
 	}
+	.list-group-item {
+		position: relative;
+		display: block;
+		padding: 0.75rem 1.25rem;
+		margin-bottom: -1px;
+		background-color: #349080;
+		border: 1px solid rgba(0, 0, 0, .125);
+	}
+
+	.list-group-item .badge {
+		float: right;
+		font-size: 16px;
+		font-weight: 600;
+	}
+
+	a,
+	a:hover {
+		color: white;
+	}
 </style>
 
 <div class="container text-center " style="margin-top: 15vh">
@@ -31,6 +51,127 @@
 		<p><?php echo $goal['description']; ?>
 		<div>
 			<h5><?php echo $language['needs_single_detail'] ?></h5>
+			<ul class="list-group">
+				<?php
+				if (strtolower($goal['cost']) == 'price') {
+					echo '<li class="list-group-item">'.$language['needs_single_cost'].'<span class="badge">' . $goal['price'] . '</span></li>';
+				} elseif (strtolower($goal['cost']) == 'barter') {
+					echo '<li class="list-group-item">'.$language['needs_single_barter'].'<span class="badge">' . $goal['barter_details'] . '</span></li>';
+				} elseif (strtolower($goal['cost']) == 'free') {
+					echo '<li class="list-group-item">'.$language['needs_single_cost'].'<span class="badge">FREE</span></li>';
+				}
+				
+
+				if (strtolower($goal['period']['type']) == 'asap') {
+					echo '<li class="list-group-item">'.$language['needs_single_need_it'].' '.strtoupper($goal['period']['type']) .'<span class="badge">' .strtoupper($goal['period']['type']) . '</span></li>';
+				} elseif (strtolower($goal['period']['type']) == 'before') {
+					echo '<li class="list-group-item">'.$language['needs_single_need_it'].' '. strtoupper($goal['period']['type']) .' <span class="badge">' .$goal['period']['end_date']. '</span></li>';
+				} elseif (strtolower($goal['period']['type']) == 'recurring') {
+					echo '<li class="list-group-item">'.$language['needs_single_need_it'].' '.strtoupper($goal['period']['type']) .'<span class="badge">';
+					if (is_array(json_decode($goal['period']['day'])) && sizeof(json_decode($goal['period']['day'])) > 0 ) {
+						foreach(json_decode($goal['period']['day']) as $day){
+							echo $day.', ';
+						}
+					}else{
+						echo "N/A";
+					}
+						
+					
+					echo '</span></li>';
+				}
+				elseif (strtolower($goal['period']['type']) == 'after') {
+					echo '<li class="list-group-item">'.$language['needs_single_need_it'].' '.strtoupper($goal['period']['type']) .'<span class="badge">'.$goal['period']['start_date'] .'</span></li>';
+				}
+
+
+
+
+				if ($goal['delivery_type'] == 'virtual') {
+					echo '<li class="list-group-item">'.$language['needs_single_delivery_details'].'<span class="badge" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 350px;">' . $goal['deliery_location'] . '</span></li>';
+				} elseif ($goal['delivery_type'] == 'address') {
+					echo '<li class="list-group-item">'.$language['needs_single_delivery_details'].'<span class="badge">' . $goal['address']['address'].' '.$goal['address']['city'] . ', ' . $goal['address']['state_province'] . ', ' . $goal['address']['county'].', '. $goal['address']['country'] . '</span></li>';
+					if(strlen($goal['address']['zip']) > 0){
+						echo '<li class="list-group-item">ZIP'.'<span class="badge">' .  $goal['address']['zip'] . '</span></li>';
+					}
+
+
+					echo '<li class="list-group-item">Needed within the '.'<span class="badge">' .  ucwords($goal['address']['region']) . '</span></li>';
+
+					if($goal['address']['distance'] > 0) {
+						echo '<li class="list-group-item">Needed in the area of ' . '<span class="badge">' . $goal['address']['distance'] . ' Miles</span></li>';
+					}
+				}
+
+
+				if ($goal['contact']['is_public'] == '1') {
+					echo '<li class="list-group-item">'.$language['needs_single_contact_name'].'<span class="badge">' . $goal['contact']['name'] . '</span></li>';
+					echo '<li class="list-group-item">'.$language['needs_single_email'].'<span class="badge"><a href="mailto:' . $goal['contact']['email'] . '">' . $goal['contact']['email'] . '</a></span></li>';
+				} 
+				?>
+				<div id="contact_box" class="" style="margin-top: 35px; background-color: #3b9b8a; padding: 15px;">
+						<h4 class="text-center" style="margin-bottom: 25px; border-bottom: 1px solid;"><?php echo $language['offers_single_contact_owner'] ?></h4>
+
+						<form id="contact_form">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name"><?php echo $language['offers_single_contact__your_name'] ?></label>
+										<input type="text" class="form-control " name="name" id="name" aria-describedby="name" placeholder="<?php echo $language['offers_single_contact__input_your_name'] ?>">
+									</div>
+								</div>
+								<input type="hidden" name="goal_id" value="<?php echo $goal['id']; ?>">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name"><?php echo $language['offers_single_contact__your_email'] ?></label>
+										<input type="text" class="form-control " name="email" id="email" aria-describedby="name" placeholder="<?php echo $language['offers_single_contact__input_your_email'] ?>">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="name"><?php echo $language['offers_single_contact__your_message'] ?></label>
+										<textarea class="form-control " name="message" id="message" aria-describedby="name" placeholder="<?php echo $language['offers_single_contact__input_message'] ?>"></textarea>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<button type="button" style="background-color: #288171; cursor:pointer;" class="form-control" onclick="contact_send(this);"><i class="fa fa-envelope" style="padding-right: 10px;"></i><?php echo $language['offers_single_contact__button_submit'] ?> </button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+					
+				<?php
+
+				
+
+				?>
+
+			</ul>
+			<style>
+				.form-control,
+				.form-control:active,
+				.form-control:focus,
+				.form-control:hover {
+					border-radius: 0;
+					outline: none;
+					background-color: #349080;
+					color: white;
+					border-color: #55a899;
+				}
+
+				.form-control::placeholder {
+					color: white;
+				}
+
+				.fade:not(.show) {
+					opacity: 1;
+				}
+
+				.modal-backdrop.fade:not(.show) {
+					opacity: 0.5;
+				}
+			</style>
 
 		</div>
 
@@ -59,6 +200,27 @@
 </div>
 
 <script>
+
+function contact_send($this) {
+
+$form = $('#contact_form').serializeArray();
+$.ajax({
+	url: '<?php echo base_url('welcome/contact_member'); ?>',
+	type: 'post',
+
+	data: $form,
+	success: function(data) {
+		$("body").overhang({
+			type: "success",
+			message: "your are mesage his been send successfully",
+			callback: function (value) {
+				window.location='<?php echo base_url('welcome/needs'); ?>';
+			}
+		});
+
+	}
+})
+}
 	function add_fav($this, $id) {
 
 		<?php

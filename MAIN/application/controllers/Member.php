@@ -16,7 +16,7 @@ class Member extends CI_Controller
 
 
 		if (isset($_SESSION['user'])) {
-			redirect(base_url('member/my_offers'));
+			redirect(base_url('member/dashboard'));
 		} else {
 			redirect(base_url('welcome/login'));
 		}
@@ -27,6 +27,7 @@ class Member extends CI_Controller
 		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
 
 
+		
 
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?please-before-login'));
@@ -34,9 +35,12 @@ class Member extends CI_Controller
 
 		$data['title'] = 'Dashboard';
 
+		$data['offers'] = $this->db->where('type', 'offer')->where('member_id', $_SESSION['user']['id'])->order_by('id', 'desc')->get('goals')->result_array();
+		$data['needs'] = $this->db->where('type', 'need')->where('member_id', $_SESSION['user']['id'])->order_by('id', 'desc')->get('goals')->result_array();
 		$this->load->view('global/header', $data);
 		$this->load->view('global/nav', $data);
-		$this->load->view('member/side_nav');
+		$this->load->view('member/side_nav',$data);
+		$this->load->view('member/dashboard',$data);
 		$this->load->view('global/footer', $data);
 	}
 
@@ -46,7 +50,7 @@ class Member extends CI_Controller
 	public function my_offers()
 	{
 		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
-		if (!isset($_SESSION['user'])) {
+		if (!isset($_SESSION['user']) ) {
 			redirect(base_url('welcome/login?n=add-new'));
 		}
 
@@ -146,11 +150,17 @@ class Member extends CI_Controller
 			}
 		}
 
-		$this->db->where('id', $_SESSION['user']['id'])->update('member', $data);
+		$res= $this->db->where('id', $_SESSION['user']['id'])->update('member', $data);
 		$_SESSION['user']['photo'] = $data['photo'];
 		$_SESSION['user']['name'] = $data['name'];
 		$_SESSION['user']['phone'] = $data['phone'];
 		$_SESSION['user']['email'] = $data['email'];
+
+		if ($res == true) {
+			$this->session->set_flashdata('true', 'User Update Successfully ');
+		} else {
+			$this->session->set_flashdata('err', "Error");
+		}
 		 return redirect('member/account_settings');
 	}
 	public function update_member_password()
@@ -400,10 +410,12 @@ class Member extends CI_Controller
 
 	public function update_need_save()
 	{
+		
 		$goal_id = $_POST['update_id'];
 		$goal_data = $_POST['goal'];
 		$contact_data = $_POST['contact'];
 		$area_data = $_POST['address'];
+		$period_data = $_POST['period'];
 
 
 		if (isset($_FILES['goal_image'])) {
@@ -412,6 +424,11 @@ class Member extends CI_Controller
 				$goal_data['photo'] = $photo_url;
 			}
 		}
+		unset($period_data['day']);
+		$period_data['day'] = json_encode(@$_POST['period']['day']);
+
+		$period_data['goal_id'] = $goal_id;
+		$this->db->where('goal_id',$goal_id)->update('time_period', $period_data);
 
 
 		$this->db->where('id', $goal_id)->update('goals', $goal_data);
@@ -562,3 +579,5 @@ class Member extends CI_Controller
 		redirect('member/my_needs');
 	}
 }
+
+?>

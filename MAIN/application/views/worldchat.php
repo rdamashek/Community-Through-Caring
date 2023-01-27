@@ -196,31 +196,61 @@
 	#chats-messages span.chat {
 		margin-left: 60px;
 	}
+
+	#useriamge {
+		margin-left: 160px;
+		border-radius: 50%;
+	}
+	#user-name {text-align: center;
+		color: #FFF;
+	}
+	#user-join-date {
+		color: #FFF;
+		text-align: center;
+	}
+
+	@media screen and (max-width: 480px) {
+		#useriamge {
+		margin-left: 90px;
+		border-radius: 50%;
+	}
+		
+	
+}
 </style>
 
 <div class="container" id="chat-container" style="margin-top: 75px">
-<p style="color: white;"><?php echo $language['worldchat_page_welcome_to_public_chat'] ?></p>
+	<p style="color: white;"><?php echo $language['worldchat_page_welcome_to_public_chat'] ?></p>
 	<div class="window">
 		<div class="header"><?php echo $language['worldchat_publicchat_text'] ?></div>
 		<div class="chats" id="chats-messages" style="overflow-y: auto; display: block; overflow-x: hidden; max-height: calc(100% - 110px);">
 			<?php
 			foreach ($messages as $message) {
+
 				if (isset($_SESSION['user']['id'])) {
-					if ($_SESSION['user']['id'] == $message['from']) {
-						echo '<span title="'.$message['time'].'" class="u2 chat">' . $message['message'] . '</span>';
-					} else {
-						echo '<span title="'.$message['time'].'" class="u1 chat">' . $message['message'] . '</span>';
+
+					if (isset($message['photo']) && strlen($message['photo']) > 0) {
+						$img_placeholder = '<img class="user-img" src="' . base_url('assets/images/uploads/thumb/' . $message['photo']) . '" > ';
+
+
+						if ($_SESSION['user']['id'] == $message['from']) {
+							// echo '<span  class="u2 chat">' . $img_placeholder . ' ' . $message['message'] . '</span>';
+							echo '<span title="' . $message['name'] . ' ' . $message['time'] . '" class="u2 chat" data-toggle="modal" data-target="#myModal" data-join_data="' . $message['join_date'] . '" onclick="show_info(\'' . $message['name'] . '\', \'' . $message['join_date'] . '\', \'' . base_url('assets/images/uploads/thumb/' . $message['photo']) . '\')">' . $img_placeholder . '' . $message['message'] . '</span>';
+						} else {
+							// echo '<span  class="u1 chat"> ' . $message['message'] . '</span>';
+							echo '<span title="' . $message['name'] . ' ' . $message['time'] . '" class="u1 chat" data-toggle="modal" data-target="#myModal" data-join_data="' . $message['join_date'] . '" onclick="show_info(\'' . $message['name'] . '\', \'' . $message['join_date'] . '\', \'' . base_url('assets/images/uploads/thumb/' . $message['photo']) . '\')"> </i>' . $img_placeholder . ' ' . $message['message'] . '</span>';
+						}
 					}
 				} else {
 					if (isset($message['photo']) && strlen($message['photo']) > 0) {
-						$img_placeholder = '<img class="user-img" src="' . base_url('assets/images/uploads/thumb/'.$message['photo']) . '" > ';
+						$img_placeholder = '<img class="user-img" src="' . base_url('assets/images/uploads/thumb/' . $message['photo']) . '" > ';
 					} else {
 						$no_img = explode(' ', ucfirst($message['name']));
 						$w1 = mb_substr($no_img[0], 0, 1);
 						$w2 = (isset($no_img[1]) ? mb_substr($no_img[1], 0, 1) : '');
 						$img_placeholder = '<div class="user-img" >' . $w1 . $w2 . '</div>';
 					}
-					echo '<span  class="u1 chat">' . $img_placeholder . ' ' . $message['message'] . '</span>';
+					echo '<span title="' . $message['name'] . ' ' . $message['time'] . '" class="u1 chat" data-toggle="modal" data-target="#myModal" data-join_data="' . $message['join_date'] . '" onclick="show_info(\'' . $message['name'] . '\', \'' . date("d-m-Y h:i A", strtotime($message['join_date'])) . '\', \'' . base_url('assets/images/uploads/thumb/' . $message['photo']) . '\')">' . $img_placeholder . ' ' . $message['message'] . '</span>';
 				}
 			}
 			?>
@@ -241,7 +271,7 @@
 <!-- Modal -->
 <div class="modal fade" id="login-prompt" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
 	<div class="modal-dialog" role="document" style="    margin-top: 20vh;">
-		<div class="modal-content">
+		<div class="modal-content" >
 			<div class="modal-header">
 				<h5 class="modal-title"><?php echo $language['worldchat_model_Login'] ?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -249,7 +279,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-			<?php echo $language['worldchat_model_Login_info'] ?>
+				<?php echo $language['worldchat_model_Login_info'] ?>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $language['worldchat_model_close'] ?></button>
@@ -259,7 +289,51 @@
 	</div>
 </div>
 
+
+<!-- ==========chat profile========== -->
+
+
+<div class="modal fade" id="member_info" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">;
+	<div class="modal-dialog" role="document" style="    margin-top: 20vh;">
+		<div class="modal-content" style="background-color: #268171;">
+			
+
+			
+			<div class="modal-body" style="    padding-top: 50px;">
+
+				<div id="user-profile"></div><br>
+				
+				<p id="user-name"></p>
+				<p id="user-join-date"></p>
+
+
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" style="background-color: #5CCAB6;" data-dismiss="modal"><?php echo $language['worldchat_model_close'] ?></button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+
+<!-- =============chat profile end================ -->
+
 <script>
+	function show_info($name, $join_date, $photo) {
+
+		$('#member_info').modal('show');
+		$("#user-profile").html('<img id="useriamge" src="' + $photo + '">');
+		$("#user-name").html($name);
+		$("#user-join-date").html($join_date);
+		
+	}
+
 	window.onload = function() {
 
 		document.querySelector('#chats-messages').scrollTo(0, document.querySelector("#chats-messages").scrollHeight);
@@ -291,5 +365,27 @@
 			}
 			?>
 		})
+
+
+
 	}
+
+	// function delete_offer($id) {
+	// 	$("body").overhang({
+	// 		type: "confirm",
+	// 		primary: "#40D47E",
+	// 		accent: "#27AE60",
+	// 		yesColor: "#3498DB",
+	// 		message: "Do you want to continue?",
+	// 		overlay: true,
+	// 		callback: function(value) {
+
+	// 			if (value) {
+	// 				window.location = '<?php //echo base_url('member/delete_offer/'); 
+											?>' + $id;
+	// 			}
+	// 		}
+	// 	});
+	// }
+	// <i class="fa fa-close" onclick="delete_offer()">
 </script>

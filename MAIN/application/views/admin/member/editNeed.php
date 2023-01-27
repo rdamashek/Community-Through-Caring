@@ -87,7 +87,7 @@
 						<option value="asap" <?php echo $period['type']=='asap'?'selected':''; ?> style="color: #fff; background-color: #44c0aa">ASAP</option>
 						<option value="before" <?php echo $period['type']=='before'?'selected':''; ?> style="color: #fff; background-color: #44c0aa">Before</option>
 						<option value="recurring" <?php echo $period['type']=='recurring'?'selected':''; ?> style="color: #fff; background-color: #44c0aa">Recurring</option>
-						<option value="period" <?php echo $period['type']=='period'?'selected':''; ?> style="color: #fff; background-color: #44c0aa">After</option>
+						<option value="after" <?php echo $period['type']=='after'?'selected':''; ?> style="color: #fff; background-color: #44c0aa">After</option>
 					</select>
 					<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;">How soon do you need it?</span>
 
@@ -186,6 +186,10 @@
 							   style="">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;">City</span>
 
+						<input type="text" class="form-control main-single-inp" name="address[state_province]" value="<?php echo $address['state_province']; ?>" placeholder="State/Province"
+							   style="">
+						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;">State/Province</span>
+
 						<input type="text" class="form-control main-single-inp" name="address[zip]" value="<?php echo $address['zip']; ?>" placeholder="Zip"
 							   style="">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;">Zip Code</span>
@@ -193,10 +197,6 @@
 						<input type="text" class="form-control main-single-inp" name="address[county]" value="<?php echo $address['county']; ?>" placeholder="County"
 							   style="">
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;">County</span>
-
-						<input type="text" class="form-control main-single-inp" name="address[country]" value="<?php echo $address['country']; ?>" placeholder="Country"
-							   style="">
-						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;">Country</span>
 
 						<select class="form-control main-single-inp" name="address[region]" value="<?php echo $address['region']; ?>" style="">
 							<option>Locality</option>
@@ -206,6 +206,12 @@
 							<option>World</option>
 						</select>
 						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;">Region</span>
+
+						<input type="text" class="form-control main-single-inp" name="address[country]" value="<?php echo $address['country']; ?>" placeholder="Country"
+							   style="">
+						<span style="color: white; display: block; text-align: center;font-style: italic;font-size: 13px;">Country</span>
+
+						
 
 						<input type="text" class="form-control main-single-inp" name="address[distance]" value="<?php echo $address['distance']; ?>" placeholder="Distance" value="0"
 							   style="">
@@ -230,7 +236,7 @@
 
 					<div style="text-align: center;margin-top: 25px;">
 						<label>
-							<input id="agree_check" name="contact[is_public]" value="<?php echo $contact['is_public']; ?>" type="checkbox" style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> Display my contact details on my listing?
+							<input id="" name="contact[is_public]" value="1" type="checkbox" <?php echo ($contact['is_public']=='1')? 'checked="checked"' :'' ?> style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> Display my contact details on my listing?
 						</label>
 					</div>
 
@@ -247,7 +253,7 @@
 
 
 					<div style="text-align: center;margin-top: 25px;">
-						<input id="agree_check" type="checkbox" style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> I agree to the <a href="#" style="text-decoration: none;color: #b8efe5;"> terms and conditions</a>
+						<input id="agree_check" value="1" type="checkbox" style="height: 20px;width: 19px;position: relative;top: 3px;margin-right: 5px;"> I agree to the <a href="#" style="text-decoration: none;color: #b8efe5;"> terms and conditions</a>
 					</div>
 
 					<div style="text-align: center;margin-top: 30px;">
@@ -286,9 +292,9 @@
 			$('.form-group.end_date').show();
 			$('.form-group.days').hide();
 		}
-		if ($val == 'period') {
+		if ($val == 'after') {
 			$('.form-group.start_date').show();
-			$('.form-group.end_date').show();
+			$('.form-group.end_date').hide();
 			$('.form-group.days').hide();
 		}
 		if ($val == 'recurring') {

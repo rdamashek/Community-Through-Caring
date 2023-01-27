@@ -22,6 +22,7 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
+		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
 		$data['title'] = 'Dashboard';
 		$this->load->view('global/header', $data);
 		$this->load->view('admin-header-nav/nav', $data);
@@ -167,6 +168,35 @@ class Admin extends CI_Controller
 		$this->load->view('admin/member/language', $data);
 		$this->load->view('global/footer', $data);
 	}
+	public function general_settings(){
+
+
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
+
+		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+
+		$data['title'] = 'Settings';
+
+		$data['settings'] = $this->db->get('general_settings')->result_array();
+		$data['email_templates'] = $this->db->get('email_templates')->result_array();
+
+		$this->load->view('global/header', $data);
+		$this->load->view('admin-header-nav/nav', $data);
+		$this->load->view('admin/side_nav');
+		$this->load->view('admin/general_settings', $data);
+		$this->load->view('global/footer', $data);
+
+	}
+
+	public function update_general_setting($id){
+		$upd = array(
+			'value' => $_POST['value']
+		);
+		$this->db->where('id', $id)->update('general_settings', $upd);
+	}
+
 	public function edit_language()
 	{
 		$lang = $_POST['lang'];
@@ -181,15 +211,15 @@ class Admin extends CI_Controller
 			fwrite($data, $lang);
 			fclose($data);
 			echo base_url('admin/language?msg=updated');
-		} 
+		}
 		// if condition false, dont update and show error 
 		else {
 			echo base_url('admin/language?error=invalid_format');
 		}
 
-		
 
-		
+
+
 
 
 
@@ -262,6 +292,49 @@ class Admin extends CI_Controller
 
 		$this->load->view('global/footer');
 	}
+
+
+
+	public function email_templates()
+	{
+
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
+		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+
+
+		$data['title'] = 'Email Templates';
+
+		$data['email_templates'] = $this->db->get('email_templates')->result_array();
+
+		$this->load->view('global/header', $data);
+		$this->load->view('admin-header-nav/nav', $data);
+		$this->load->view('admin/side_nav');
+		$this->load->view('admin/email_templates', $data);
+		$this->load->view('global/footer', $data);
+	}
+
+	public function get_email_template($id)
+	{
+
+		$email_template = $this->db->where('id', $id)->get('email_templates')->result_array()[0];
+		echo json_encode($email_template);
+
+	}
+
+	public function save_email()
+	{
+		$upd = array(
+			'body' => $_POST['body'],
+			'subject' => $_POST['subject'],
+		);
+
+		$this->db->where('id', $_POST['id'])->update('email_templates', $upd);
+		redirect(base_url('admin/general_settings'));
+	}
+
+
 
 	public function login()
 	{
@@ -403,5 +476,124 @@ class Admin extends CI_Controller
 	}
 	public function login_detail()
 	{
+	}
+
+	// ========================
+	public function all_users()
+	{
+
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
+		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+
+
+		$data['title'] = 'All Users';
+
+
+		$data['users'] = $this->db->get('member')->result_array();
+		// print_r($data);die();
+
+		$this->load->view('global/header', $data);
+		$this->load->view('admin-header-nav/nav', $data);
+		$this->load->view('admin/side_nav');
+		$this->load->view('admin/member/all_users', $data);
+		$this->load->view('global/footer', $data);
+	}
+
+
+	public function edit_user($id)
+	{
+		// print_r($id);die();
+
+		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+
+		$data['users'] = $this->db->where('id', $id)->get('member')->result_array()[0];
+
+		// $data['period'] = @$this->db->where('goal_id', $id)->get('time_period')->result_array()[0];
+		// $gc = @$this->db->where('goal_id', $id)->get('goal_contact')->result_array()[0];
+		// $data['contact'] = @$this->db->where('id', $gc['contact_id'])->get('contact')->result_array()[0];
+		// $data['address'] = @$this->db->where('goal_id', $id)->get('area_shared')->result_array()[0];
+
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=add-new'));
+		}
+
+		$data['title'] = 'Edit user';
+
+		$this->load->view('global/header', $data);
+		$this->load->view('admin/side_nav');
+		$this->load->view('admin/member/edit_user', $data);
+		$this->load->view('global/footer', $data);
+	}
+
+	public function update_user()
+	{
+		$user_id = $_POST['update_id'];
+		$data = array(
+
+
+
+			'name' => $this->input->post('name'),
+			'email' => $this->input->post('email'),
+			'password' => $this->input->post('password'),
+		);
+		$data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		// $user_id = $_POST['update_id'];
+		// $user_data = $_POST['user'];
+
+
+
+
+
+		$res = $this->db->where('id', $user_id)->update('member', $data);
+
+		if ($res == true) {
+			$this->session->set_flashdata('true', 'User Update Successfully ');
+		} else {
+			$this->session->set_flashdata('err', "Error");
+		}
+		redirect('admin/all_users');
+	}
+	public function delete_user($id)
+	{
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=add-new'));
+		}
+		$this->db->where(array("id" => $id));
+		$this->db->delete('member');
+		redirect('admin/all_users');
+	}
+
+
+	public function chat()
+	{
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
+		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+
+		$data['title'] = 'Public chat';
+
+		$data['messages'] = $this->db->select('chat.*, member.name, member.signup_date as join_date, member.photo')->join('member', 'member.id=chat.from')->get('chat')->result_array();
+
+
+
+		$this->load->view('global/header', $data);
+		$this->load->view('admin-header-nav/nav', $data);
+		$this->load->view('admin/side_nav');
+		$this->load->view('admin/worldchat', $data);
+		$this->load->view('global/footer', $data);
+	}
+
+
+	public function delete_chat($id)
+	{
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=add-new'));
+		}
+		$this->db->where(array("id" => $id));
+		$this->db->delete('chat');
+		redirect(base_url('admin/chat'));
 	}
 }

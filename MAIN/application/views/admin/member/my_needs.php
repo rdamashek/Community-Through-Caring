@@ -50,27 +50,27 @@
         
 			
 			"language": {
-        "sProcessing":    "Procesando...",
+        "sProcessing":    "<?php echo $language['datatable_processing'] ?>...",
         "sLengthMenu":    "<?php echo $language['datatable_show_menu_entries'] ?>",
-        "sZeroRecords":   "No se encontraron resultados",
+        "sZeroRecords":   "<?php echo $language['datatable_no_results_found'] ?>",
         "sEmptyTable":    "<?php echo $language['datatable_no_data_avaulable_in_table'] ?>",
         "sInfo":          "<?php echo $language['datatable_showing_start_to_end_of_total_entries'] ?>",
         "sInfoEmpty":     "<?php echo $language['datatable_showing_0_to_0_of_0_entries'] ?>",
-        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoFiltered":  "(<?php echo $language['datatable_filtering_a_total_of'] ?> _MAX_ <?php echo $language['datatable_records'] ?>)",
         "sInfoPostFix":   "",
         "sSearch":        "<?php echo $language['datatable_search'] ?>:",
         "sUrl":           "",
         "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
+        "sLoadingRecords": "<?php echo $language['datatable_charging'] ?>...",
         "oPaginate": {
-            "sFirst":    "Primero",
-            "sLast":    "Último",
+            "sFirst":    "<?php echo $language['datatable_first'] ?>",
+            "sLast":    "<?php echo $language['datatable_last'] ?>",
             "sNext":    "<?php echo $language['datatable_next'] ?>",
             "sPrevious": "<?php echo $language['datatable_previous'] ?>"
         },
         "oAria": {
-            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            "sSortAscending":  ": <?php echo $language['datatable_Check_to_sort_the_column_in_ascending_order'] ?>",
+            "sSortDescending": ": <?php echo $language['datatable_Check_to_sort_column_descending'] ?>"
         }
     }
 		});

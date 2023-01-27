@@ -37,6 +37,34 @@ if ( ! function_exists('time_elapsed_string'))
 }
 
 
+if ( ! function_exists('get_setting_value'))
+{
+	function get_setting_value($val_name) {
+		$CI = get_instance();
+
+		return $CI->db->where('setting_name', $val_name)->get('general_settings')->result_array()[0]['value'];
+
+	}
+
+
+}
+
+if ( ! function_exists('get_email_template'))
+{
+	function get_email_template($template_name) {
+		$CI = get_instance();
+
+		return $CI->db->select('subject, body')->where('type', $template_name)->get('email_templates')->result_array()[0];
+
+	}
+
+
+}
+
+
+
+
+
 
 if ( ! function_exists('doupload'))
 {
