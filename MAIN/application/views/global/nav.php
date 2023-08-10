@@ -69,6 +69,14 @@
 	.navbar-light .navbar-brand:focus {
 		color: #fff !important;
 	}
+	@media (max-width: 470px) {
+		.navbar-brand{
+			width: 320px !important;
+			overflow: hidden !important;
+		}
+
+	}
+
 	
 </style>
 
@@ -85,16 +93,16 @@
 
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url(); ?>welcome/offers"><i class="fa fa-earth"></i>
-						<?php echo $language['nav_offers_text']; ?></a>
+						<?php echo get_lang('lang_offers'); ?></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>welcome/needs"><i class="fa fa-heart"></i> <?php echo $language['nav_needs_text']; ?></a>
+					<a class="nav-link" href="<?php echo base_url(); ?>welcome/needs"><i class="fa fa-heart"></i> <?php echo get_lang('lang_needs'); ?></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>welcome/chat"><i class="fa fa-comments"></i> <?php echo $language['nav_chat_text']; ?></a>
+					<a class="nav-link" href="<?php echo base_url(); ?>welcome/chat"><i class="fa fa-comments"></i> <?php echo get_lang('lang_chat'); ?></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>welcome/about_us"><i class="fa fa-info-circle"></i> <?php echo $language['page_about_us_heading']; ?></a>
+					<a class="nav-link" href="<?php echo base_url(); ?>welcome/about_us"><i class="fa fa-info-circle"></i> <?php echo get_lang('lang_about_us'); ?></a>
 				</li>
 
 
@@ -112,29 +120,29 @@
 				?>
 
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url(); ?>member/dashboard"><i class="fa fa-user"></i> <?php echo $language['nav_dashboard_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url(); ?>member/dashboard"><i class="fa fa-user"></i> <?php echo get_lang('lang_my_dashboard'); ?></a>
 					</li>
 					<span id="item">
 						<li class="nav-item">
-							<a class="nav-link" href="<?php echo base_url('member/my_offers'); ?>"><i class="fa fa-earth"></i> &nbsp; <?php echo $language['side_nav_myoffers_text']; ?></a>
+							<a class="nav-link" href="<?php echo base_url('member/my_offers'); ?>"><i class="fa fa-earth"></i> &nbsp; <?php echo get_lang('lang_my_offers'); ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="<?php echo base_url('member/my_needs'); ?>"><i class="fa fa-heart"></i> &nbsp;<?php echo $language['side_nav_myneeds_text']; ?></a>
+							<a class="nav-link" href="<?php echo base_url('member/my_needs'); ?>"><i class="fa fa-heart"></i> &nbsp;<?php echo get_lang('lang_my_needs'); ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="<?php echo base_url('member/account_settings'); ?>"><i class="fa fa-gear"></i> &nbsp;<?php echo $language['side_nav_accountsettings_text']; ?></a>
+							<a class="nav-link" href="<?php echo base_url('member/account_settings'); ?>"><i class="fa fa-gear"></i> &nbsp;<?php echo get_lang('lang_account_settings'); ?></a>
 						</li>
 
 					</span>
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url(); ?>member/logout"><i class="fa fa-power-off"></i> <?php echo $language['nav__logout_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url(); ?>member/logout"><i class="fa fa-power-off"></i> <?php echo get_lang('lang_sign_out'); ?></a>
 					</li>
 				<?php
 				} else {
 				?>
 
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url(); ?>member"><i class="fa fa-user"></i> <?php echo $language['nav_signin_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url(); ?>member"><i class="fa fa-user"></i> <?php echo get_lang('lang_sign_in'); ?></a>
 					</li>
 				<?php
 				}

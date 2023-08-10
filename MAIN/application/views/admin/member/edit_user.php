@@ -66,22 +66,22 @@
 				<div class="single-step">
 					<h3 class="text-center">
 					<a style="color: #fff; text-decoration: none;" href="<?php echo base_url('admin/all_users'); ?>"><i class="back-step-btn fa fa-angle-left" style="    float: left;font-size: 25px;width: 35px;height: 35px;border-radius: 50%;border: 2px solid;line-height: 30px;cursor: pointer;display: flex;align-items: center;flex-wrap: nowrap;flex-direction: row;justify-content: center;"></i></a>
-						Update User
+					<?php echo get_lang('lang_update_user'); ?>
 					</h3>
 
 					<input type="hidden" name="update_id" value="<?php echo $users['id']; ?>">
 
-					<input type="text" class="form-control main-single-inp" name="name" value="<?php echo $users['name']; ?>" placeholder="User Name">
-					<input type="text" class="form-control main-single-inp" name="email" value="<?php echo $users['email']; ?>" placeholder="email">
+					<input type="text" class="form-control main-single-inp" name="name" value="<?php echo $users['name']; ?>" placeholder="<?php echo get_lang('lang_user_name'); ?>">
+					<input type="text" class="form-control main-single-inp" name="email" value="<?php echo $users['email']; ?>" placeholder="<?php echo get_lang('lang_email'); ?>">
 
-					<input type="text" class="form-control main-single-inp" name="phone" value="<?php echo $users['phone']; ?>" placeholder="Phone Number">
+					<input type="text" class="form-control main-single-inp" name="phone" value="<?php echo $users['phone']; ?>" placeholder="<?php echo get_lang('lang_phone_number'); ?>">
 					<!-- <input type="password" class="form-control main-single-inp" name="password" value="" placeholder="Change User Password"> -->
 
 
 
 
 					<div style="text-align: center;margin-top: 30px;">
-						<button type="button" onclick="$(this).parents('.single-step').hide().next('.single-step').show();" style="background-color: #fff; color: #288171; cursor:pointer;" class="form-control next-btn-circle"><i class="fa fa-eye"></i> Change Password</button>
+						<button type="button" onclick="$(this).parents('.single-step').hide().next('.single-step').show();" style="background-color: #fff; color: #288171; cursor:pointer;" class="form-control next-btn-circle"><i class="fa fa-eye"></i> <?php echo get_lang('lang_change_password'); ?></button>
 
 					</div>
 					<!-- <a href="#" class="next-btn-circle" style="font-size: 38px"
@@ -89,7 +89,7 @@
 							class="fa fa-angle-right" style="font-size: 38px"></i></a> -->
 
 					<div style="text-align: center;margin-top: 30px;">
-						<button type="submit" style="background-color: #288171; color: white; cursor:pointer;" class="form-control next-btn-circle"><i class="fa fa-check"></i> Update User</button>
+						<button type="submit" style="background-color: #288171; color: white; cursor:pointer;" class="form-control next-btn-circle"><i class="fa fa-check"></i> <?php echo get_lang('lang_update_user'); ?></button>
 
 					</div>
 
@@ -97,13 +97,13 @@
 				<div class="single-step" style="display: none">
 					<h3 class="text-center">
 						<a style="color: #fff; text-decoration: none;" href="<?php base_url('admin/edit_user'); ?>"><i class="back-step-btn fa fa-angle-left" style="    float: left;font-size: 25px;width: 35px;height: 35px;border-radius: 50%;border: 2px solid;line-height: 30px;cursor: pointer;display: flex;align-items: center;flex-wrap: nowrap;flex-direction: row;justify-content: center;"></i></a>
-						Update User password
+						<?php echo get_lang('lang_update_user_password'); ?>
 					</h3>
-					<input type="password" class="form-control main-single-inp" name="password" value="" placeholder="Change User Password">
+					<input type="password" class="form-control main-single-inp" name="password" value="" placeholder="<?php echo get_lang('lang_change_user_password'); ?>">
 
 
 					<div style="text-align: center;margin-top: 30px;">
-						<button type="submit" style="background-color: #fff; color: #288171; cursor:pointer;" class="form-control next-btn-circle"><i class="fa fa-check"></i> Update User Password</button>
+						<button type="submit" style="background-color: #fff; color: #288171; cursor:pointer;" class="form-control next-btn-circle"><i class="fa fa-check"></i> <?php echo get_lang('lang_update_user_password'); ?></button>
 
 					</div>
 				</div>
@@ -225,7 +225,7 @@
 
 				$("body").overhang({
 					type: "success",
-					message: "User updated successfully",
+					message: "<?php echo get_lang('lang_user_updated_successfully'); ?>",
 					callback: function(value) {
 						window.location = '<?php echo base_url('admin/all_users'); ?>';
 					}

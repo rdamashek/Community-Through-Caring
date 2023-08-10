@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/MAIN/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/mikey179/vfsstream" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/composer" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/theseer/tokenizer" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="5.3.0" />
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/MAIN/vendor/autoload.php" />
+    </phpunit_settings>
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+</project>

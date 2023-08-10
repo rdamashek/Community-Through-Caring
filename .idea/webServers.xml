@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c1f55ec9-3aa5-443d-b43b-c06b5914babe" name="sohealthy.app" url="http://ftp.sohealthy.app">
+        <fileTransfer rootFolder="/sohealthy.app/public_html" host="ftp.sohealthy.app" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

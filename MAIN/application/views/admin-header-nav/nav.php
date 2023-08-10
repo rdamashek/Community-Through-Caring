@@ -73,6 +73,13 @@
 	.navbar-brand:focus {
 		color: white !important;
 	}
+	@media (max-width: 470px) {
+		.navbar-brand{
+			width: 320px !important;
+			overflow: hidden !important;
+		}
+
+	}
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
@@ -88,10 +95,10 @@
 
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url(); ?>admin/my_offers"><i class="fa fa-earth"></i>
-						<?php echo $language['nav_offers_text']; ?></a>
+						<?php echo get_lang('lang_offers'); ?></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>admin/my_needs"><i class="fa fa-heart"></i> <?php echo $language['nav_needs_text']; ?></a>
+					<a class="nav-link" href="<?php echo base_url(); ?>admin/my_needs"><i class="fa fa-heart"></i> <?php echo get_lang('lang_needs'); ?></a>
 				</li>
 				
 
@@ -129,17 +136,17 @@
 
 
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url('admin/account_settings'); ?>"><i class="fa fa-gear"></i> <?php echo $language['side_nav_accountsettings_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url('admin/account_settings'); ?>"><i class="fa fa-gear"></i> <?php echo get_lang('lang_account_settings'); ?></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url(); ?>admin/logout"><i class="fa fa-power-off"></i> <?php echo $language['nav__logout_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url(); ?>admin/logout"><i class="fa fa-power-off"></i> <?php echo get_lang('lang_sign_out'); ?></a>
 					</li>
 				<?php
 				} else {
 				?>
 
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url(); ?>admin"><i class="fa fa-user"></i> <?php echo $language['nav_signin_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url(); ?>admin"><i class="fa fa-user"></i> <?php echo get_lang('lang_sign_in'); ?></a>
 					</li>
 				<?php
 				}

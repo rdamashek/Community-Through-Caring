@@ -220,8 +220,8 @@
 </style>
 
 <div class="container" id="chat-container" style="margin-top: 140px">
-	<h2 style="color: white; text-align: center;"><?php echo $language['page_about_us_heading'] ?></h2>
-	<p style="color: white;  margin-top: 30px;"><?php echo $language['page_about_us_description'] ?></p>
+	<h2 style="color: white; text-align: center;"><?php echo get_lang('lang_about_us') ?></h2>
+	<p style="color: white;  margin-top: 30px;"><?php echo get_lang('lang_about_text') ?></p>
 	
 </div>
 

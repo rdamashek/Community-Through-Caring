@@ -2,7 +2,43 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../4-avenues/.idea/4-avenues.iml" filepath="$PROJECT_DIR$/../4-avenues/.idea/4-avenues.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Blu Opal/.idea/Blu Opal.iml" filepath="$PROJECT_DIR$/../Blu Opal/.idea/Blu Opal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Blu Opals/.idea/Blu Opals.iml" filepath="$PROJECT_DIR$/../Blu Opals/.idea/Blu Opals.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Community-Through-Caring.iml" filepath="$PROJECT_DIR$/.idea/Community-Through-Caring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../IIS/.idea/IIS.iml" filepath="$PROJECT_DIR$/../../../IIS/.idea/IIS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Bb/goalpost_beta/.idea/MAIN.iml" filepath="$PROJECT_DIR$/../Bb/goalpost_beta/.idea/MAIN.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Masonry-css/.idea/Masonry-css.iml" filepath="$PROJECT_DIR$/../Masonry-css/.idea/Masonry-css.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../New folder/.idea/New folder.iml" filepath="$PROJECT_DIR$/../New folder/.idea/New folder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Wsj/.idea/Wsj.iml" filepath="$PROJECT_DIR$/../Wsj/.idea/Wsj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Zoom-OAuth-API-with-PHP-master/.idea/Zoom-OAuth-API-with-PHP-master.iml" filepath="$PROJECT_DIR$/../Zoom-OAuth-API-with-PHP-master/.idea/Zoom-OAuth-API-with-PHP-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../avenues/.idea/avenues.iml" filepath="$PROJECT_DIR$/../avenues/.idea/avenues.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../booking/.idea/booking.iml" filepath="$PROJECT_DIR$/../booking/.idea/booking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../convert-to-php/.idea/convert-to-php.iml" filepath="$PROJECT_DIR$/../convert-to-php/.idea/convert-to-php.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../countrymanager/.idea/countrymanager.iml" filepath="$PROJECT_DIR$/../countrymanager/.idea/countrymanager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../dome/.idea/dome.iml" filepath="$PROJECT_DIR$/../dome/.idea/dome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../farstad-alu-warehouse-main/.idea/farstad-alu-warehouse-main.iml" filepath="$PROJECT_DIR$/../farstad-alu-warehouse-main/.idea/farstad-alu-warehouse-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../xampp7/htdocs/.idea/htdocs.iml" filepath="$PROJECT_DIR$/../../../xampp7/htdocs/.idea/htdocs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../html5-video/.idea/html5-video.iml" filepath="$PROJECT_DIR$/../html5-video/.idea/html5-video.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jQuery-Plugin-For-Aligning-Elements-As-A-Mosaic-jMosaic/.idea/jQuery-Plugin-For-Aligning-Elements-As-A-Mosaic-jMosaic.iml" filepath="$PROJECT_DIR$/../jQuery-Plugin-For-Aligning-Elements-As-A-Mosaic-jMosaic/.idea/jQuery-Plugin-For-Aligning-Elements-As-A-Mosaic-jMosaic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../matter-js/.idea/matter-js.iml" filepath="$PROJECT_DIR$/../matter-js/.idea/matter-js.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../multi_tenant/.idea/multi_tenant.iml" filepath="$PROJECT_DIR$/../multi_tenant/.idea/multi_tenant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../pdf/.idea/pdf.iml" filepath="$PROJECT_DIR$/../pdf/.idea/pdf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sample-app-web/.idea/sample-app-web.iml" filepath="$PROJECT_DIR$/../sample-app-web/.idea/sample-app-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Bb/singlehtml/.idea/singlehtml.iml" filepath="$PROJECT_DIR$/../Bb/singlehtml/.idea/singlehtml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../slick/.idea/slick.iml" filepath="$PROJECT_DIR$/../slick/.idea/slick.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../slider/.idea/slider.iml" filepath="$PROJECT_DIR$/../slider/.idea/slider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../slider2/.idea/slider2.iml" filepath="$PROJECT_DIR$/../slider2/.idea/slider2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sohealthy/.idea/sohealthy.iml" filepath="$PROJECT_DIR$/../sohealthy/.idea/sohealthy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../wct_01/.idea/wct_01.iml" filepath="$PROJECT_DIR$/../wct_01/.idea/wct_01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../wct_asp/.idea/wct_asp.iml" filepath="$PROJECT_DIR$/../wct_asp/.idea/wct_asp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../whitecourt_php/.idea/whitecourt_php.iml" filepath="$PROJECT_DIR$/../whitecourt_php/.idea/whitecourt_php.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../zampi_editor/.idea/zampi_editor.iml" filepath="$PROJECT_DIR$/../zampi_editor/.idea/zampi_editor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../zampi_main/.idea/zampi_main.iml" filepath="$PROJECT_DIR$/../zampi_main/.idea/zampi_main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../zoom-api/.idea/zoom-api.iml" filepath="$PROJECT_DIR$/../zoom-api/.idea/zoom-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../zoom-meeting-php-main/.idea/zoom-meeting-php-main.iml" filepath="$PROJECT_DIR$/../zoom-meeting-php-main/.idea/zoom-meeting-php-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../zoom-php/.idea/zoom-php.iml" filepath="$PROJECT_DIR$/../zoom-php/.idea/zoom-php.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../zoom_call/.idea/zoom_call.iml" filepath="$PROJECT_DIR$/../zoom_call/.idea/zoom_call.iml" />
     </modules>
   </component>
 </project>

@@ -35,12 +35,18 @@
 		float: right;
 		font-size: 16px;
 		font-weight: 600;
+		white-space: unset;
 	}
 
 	a,
 	a:hover {
 		color: white;
+		overflow-wrap: anywhere;
 	}
+	
+		
+		
+	
 </style>
 
 <div class="container text-center " style="margin-top: 15vh">
@@ -50,24 +56,24 @@
 		<h3 style="margin-top: 25px"><?php echo $goal['name']; ?> <span style="float: right;font-size: 13px;line-height: 35px;color: #d4fff7;font-style: italic;font-weight: normal;"><i class="fa fa-clock"></i><?php echo time_elapsed_string($goal['date_created']); ?> &nbsp; &nbsp; <a href="#" style="color: white" onclick="add_fav(this, <?php echo $goal['id']; ?>)"><i class="<?php echo $goal['is_fav'] == '1' ? 'fa' : 'fa-regular'; ?> fa-heart" style="font-size: 27px;position: relative;top: 4px;"></i></a> </span></h3>
 		<p><?php echo $goal['description']; ?>
 		<div>
-			<h5><?php echo $language['needs_single_detail'] ?></h5>
+			<h5><?php echo get_lang('lang_details') ?></h5>
 			<ul class="list-group">
 				<?php
 				if (strtolower($goal['cost']) == 'price') {
-					echo '<li class="list-group-item">'.$language['needs_single_cost'].'<span class="badge">' . $goal['price'] . '</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_cost').'<span class="badge">' . $goal['price'] . '</span></li>';
 				} elseif (strtolower($goal['cost']) == 'barter') {
-					echo '<li class="list-group-item">'.$language['needs_single_barter'].'<span class="badge">' . $goal['barter_details'] . '</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_barter').'<span class="badge">' . $goal['barter_details'] . '</span></li>';
 				} elseif (strtolower($goal['cost']) == 'free') {
-					echo '<li class="list-group-item">'.$language['needs_single_cost'].'<span class="badge">FREE</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_cost').'<span class="badge">'.get_lang('lang_free') .'FREE</span></li>';
 				}
 				
 
 				if (strtolower($goal['period']['type']) == 'asap') {
-					echo '<li class="list-group-item">'.$language['needs_single_need_it'].' '.strtoupper($goal['period']['type']) .'<span class="badge">' .strtoupper($goal['period']['type']) . '</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_need_it_asap') .'<span class="badge">' .strtoupper($goal['period']['type']) . '</span></li>';
 				} elseif (strtolower($goal['period']['type']) == 'before') {
-					echo '<li class="list-group-item">'.$language['needs_single_need_it'].' '. strtoupper($goal['period']['type']) .' <span class="badge">' .$goal['period']['end_date']. '</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_need_it_before') .' <span class="badge">' .$goal['period']['end_date']. '</span></li>';
 				} elseif (strtolower($goal['period']['type']) == 'recurring') {
-					echo '<li class="list-group-item">'.$language['needs_single_need_it'].' '.strtoupper($goal['period']['type']) .'<span class="badge">';
+					echo '<li class="list-group-item">'.get_lang('lang_need_it_recurring') .'<span class="badge">';
 					if (is_array(json_decode($goal['period']['day'])) && sizeof(json_decode($goal['period']['day'])) > 0 ) {
 						foreach(json_decode($goal['period']['day']) as $day){
 							echo $day.', ';
@@ -80,16 +86,16 @@
 					echo '</span></li>';
 				}
 				elseif (strtolower($goal['period']['type']) == 'after') {
-					echo '<li class="list-group-item">'.$language['needs_single_need_it'].' '.strtoupper($goal['period']['type']) .'<span class="badge">'.$goal['period']['start_date'] .'</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_need_it_after').' '.'<span class="badge">'.$goal['period']['start_date'] .'</span></li>';
 				}
 
 
 
 
 				if ($goal['delivery_type'] == 'virtual') {
-					echo '<li class="list-group-item">'.$language['needs_single_delivery_details'].'<span class="badge" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 350px;">' . $goal['deliery_location'] . '</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_delivery_details').'<span class="badge" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 350px;">' . $goal['deliery_location'] . '</span></li>';
 				} elseif ($goal['delivery_type'] == 'address') {
-					echo '<li class="list-group-item">'.$language['needs_single_delivery_details'].'<span class="badge">' . $goal['address']['address'].' '.$goal['address']['city'] . ', ' . $goal['address']['state_province'] . ', ' . $goal['address']['county'].', '. $goal['address']['country'] . '</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_delivery_details').'<span class="badge">' . $goal['address']['address'].' '.$goal['address']['city'] . ', ' . $goal['address']['state_province'] . ', ' . $goal['address']['county'].', '. $goal['address']['country'] . '</span></li>';
 					if(strlen($goal['address']['zip']) > 0){
 						echo '<li class="list-group-item">ZIP'.'<span class="badge">' .  $goal['address']['zip'] . '</span></li>';
 					}
@@ -102,38 +108,39 @@
 					}
 				}
 
-
+				if(isset($goal['contact']['is_public'])){
 				if ($goal['contact']['is_public'] == '1') {
-					echo '<li class="list-group-item">'.$language['needs_single_contact_name'].'<span class="badge">' . $goal['contact']['name'] . '</span></li>';
-					echo '<li class="list-group-item">'.$language['needs_single_email'].'<span class="badge"><a href="mailto:' . $goal['contact']['email'] . '">' . $goal['contact']['email'] . '</a></span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_contact_name').'<span class="badge"><a href="'.base_url('user/posts/'.clean($goal['contact']['name']).'/'.$goal['member_id']).'">' . $goal['contact']['name'] . '</a></span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_email').'<span class="badge"><a href="mailto:' . $goal['contact']['email'] . '">' . $goal['contact']['email'] . '</a></span></li>';
 				} 
+			}
 				?>
 				<div id="contact_box" class="" style="margin-top: 35px; background-color: #3b9b8a; padding: 15px;">
-						<h4 class="text-center" style="margin-bottom: 25px; border-bottom: 1px solid;"><?php echo $language['offers_single_contact_owner'] ?></h4>
+						<h4 class="text-center" style="margin-bottom: 25px; border-bottom: 1px solid;"><?php echo get_lang('lang_contact_owner') ?></h4>
 
 						<form id="contact_form">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="name"><?php echo $language['offers_single_contact__your_name'] ?></label>
-										<input type="text" class="form-control " name="name" id="name" aria-describedby="name" placeholder="<?php echo $language['offers_single_contact__input_your_name'] ?>">
+										<label for="name"><?php echo get_lang('lang_your_name') ?></label>
+										<input type="text" class="form-control " name="name" id="name" aria-describedby="name" placeholder="<?php echo get_lang('lang_your_name') ?>">
 									</div>
 								</div>
 								<input type="hidden" name="goal_id" value="<?php echo $goal['id']; ?>">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="name"><?php echo $language['offers_single_contact__your_email'] ?></label>
-										<input type="text" class="form-control " name="email" id="email" aria-describedby="name" placeholder="<?php echo $language['offers_single_contact__input_your_email'] ?>">
+										<label for="name"><?php echo get_lang('lang_your_email') ?></label>
+										<input type="text" class="form-control " name="email" id="email" aria-describedby="name" placeholder="<?php echo get_lang('lang_your_email') ?>">
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="name"><?php echo $language['offers_single_contact__your_message'] ?></label>
-										<textarea class="form-control " name="message" id="message" aria-describedby="name" placeholder="<?php echo $language['offers_single_contact__input_message'] ?>"></textarea>
+										<label for="name"><?php echo get_lang('lang_your_message') ?></label>
+										<textarea class="form-control " name="message" id="message" aria-describedby="name" placeholder="<?php echo get_lang('lang_message') ?>"></textarea>
 									</div>
 								</div>
 								<div class="col-md-12">
-									<button type="button" style="background-color: #288171; cursor:pointer;" class="form-control" onclick="contact_send(this);"><i class="fa fa-envelope" style="padding-right: 10px;"></i><?php echo $language['offers_single_contact__button_submit'] ?> </button>
+									<button type="button" style="background-color: #288171; cursor:pointer;" class="form-control" onclick="contact_send(this);"><i class="fa fa-envelope" style="padding-right: 10px;"></i><?php echo get_lang('lang_submit') ?> </button>
 								</div>
 							</div>
 						</form>
@@ -183,17 +190,17 @@
 	<div class="modal-dialog" role="document" style="    margin-top: 20vh;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title"><?php echo $language['needs_single_model_login'] ?></h5>
+				<h5 class="modal-title"><?php echo get_lang('lang_sign_in') ?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-			<?php echo $language['needs_single_model_login_info'] ?>
+			<?php echo get_lang('lang_please_sign_in_before_liking_need') ?>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $language['needs_single_model_close'] ?></button>
-				<button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url('welcome/login?redirect=welcome_needs'); ?>'"><?php echo $language['needs_single_model_login_now'] ?></button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo get_lang('lang_close') ?></button>
+				<button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url('welcome/login?redirect=welcome_needs'); ?>'"><?php echo get_lang('lang_sign_in_now') ?></button>
 			</div>
 		</div>
 	</div>
@@ -212,7 +219,7 @@ $.ajax({
 	success: function(data) {
 		$("body").overhang({
 			type: "success",
-			message: "your are mesage his been send successfully",
+			message: "<?php echo get_lang('lang_your_message_has_been_sent_successfully'); ?>",
 			callback: function (value) {
 				window.location='<?php echo base_url('welcome/needs'); ?>';
 			}

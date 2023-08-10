@@ -10,7 +10,8 @@ class Admin extends CI_Controller
 	}
 	public function index()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
+
 		$data['title'] = 'Login';
 		$this->load->view('global/header', $data);
 		$this->load->view('admin/login', $data);
@@ -22,7 +23,7 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		$data['title'] = 'Dashboard';
 		$this->load->view('global/header', $data);
 		$this->load->view('admin-header-nav/nav', $data);
@@ -32,13 +33,18 @@ class Admin extends CI_Controller
 		$this->load->view('global/footer', $data);
 	}
 
+//	public function delete_lang($kw)
+//	{
+//		$this->db->where('lang_key', $kw)->delete('language');
+//	}
+
 	public function my_offers()
 	{
 
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'My Offers';
@@ -55,7 +61,7 @@ class Admin extends CI_Controller
 	public function edit_offer($id)
 	{
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$data['goal'] = $this->db->where('id', $id)->get('goals')->result_array()[0];
 		$data['period'] = @$this->db->where('goal_id', $id)->get('time_period')->result_array()[0];
@@ -70,6 +76,8 @@ class Admin extends CI_Controller
 		$data['title'] = 'Edit offer';
 
 		$this->load->view('global/header', $data);
+		$this->load->view('admin-header-nav/nav', $data);
+
 		$this->load->view('admin/side_nav');
 		$this->load->view('admin/member/edit_offer', $data);
 		$this->load->view('global/footer', $data);
@@ -86,7 +94,7 @@ class Admin extends CI_Controller
 
 	public function my_needs()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=add-new'));
@@ -109,7 +117,7 @@ class Admin extends CI_Controller
 	public function edit_need($id)
 	{
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
@@ -123,9 +131,11 @@ class Admin extends CI_Controller
 		$data['address'] = @$this->db->where('goal_id', $id)->get('area_shared')->result_array()[0];
 
 
-		$data['title'] = 'Edit offer';
+		$data['title'] = 'Edit Need';
 
 		$this->load->view('global/header', $data);
+		$this->load->view('admin-header-nav/nav', $data);
+
 		$this->load->view('admin/side_nav');
 		$this->load->view('admin/member/editNeed', $data);
 		$this->load->view('global/footer', $data);
@@ -149,17 +159,12 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		// $data['language'] = $language = $this->db->get('language')->result_array();
-		// $data['language'] = array();
-		// foreach ($language as $lang) {
-		// 	$data['language'][$lang['word']] = $lang['display_text'];
-		// }
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		 $data['language'] = $this->db->get('language')->result_array();
+
+		
 
 		$data['title'] = 'Language';
 
-		// $data['languages'] = $language = $this->db->get('language')->result_array();
-		// 		
 
 
 		$this->load->view('global/header', $data);
@@ -168,14 +173,387 @@ class Admin extends CI_Controller
 		$this->load->view('admin/member/language', $data);
 		$this->load->view('global/footer', $data);
 	}
-	public function general_settings(){
+
+	// Save Language in database 
+	public function db_language()
+	{
+
+		$json_string = file_get_contents('./language.json');
+		$data = json_decode($json_string, true);
+		// print_r($data);die();
+
+		foreach ($data as $key => $row) {
+			$ins = array(
+				'key' => $key,
+				'value' => $row
+			);
+			$this->db->insert('language', $ins);
+		}
+	}
+	private function array_to_csv($array) {
+		$csv = '';
+		$header = array_keys($array[0]);
+		$csv .= implode(',', $header) . "\n";
+
+		foreach ($array as $row) {
+			$csv .= implode(',', array_values($row)) . "\n";
+		}
+
+		return $csv;
+	}
+
+	public function export_langauge(){
+
+		$this->load->helper('url');
+		$this->load->helper('file');
+		$this->load->helper('download');
+
+		$this->load->dbutil();
+
+		$query = $this->db->select('lang_key, lang_value, notes')
+			->get('language');
+
+		$delimiter = ",";
+		$newline = "\r\n";
+		$enclosure = '"';
+
+		$csv_data = $this->dbutil->csv_from_result($query, $delimiter, $newline, $enclosure);
+		$file_name = 'language_export_' . date('Y_m_d_H_i_s') . '.csv';
+
+		force_download($file_name, $csv_data);
+
+/*
+
+		// Select all rows from the language table
+		$this->load->dbutil();
+		$query = $this->db->get('language');
+		$result = $query->result_array();
+
+		// Generate SQL string for all rows
+		$sql = $this->dbutil->backup(array(
+			'tables' => array('language'), // table to backup
+			'format' => 'txt', // format of the backup
+			'add_drop' => TRUE, // Whether to add DROP TABLE statements to backup file
+			'add_insert' => TRUE, // Whether to add INSERT statements to backup file
+			'newline' => "\n" // Character used to separate lines in the backup file
+		));
+
+		// Set filename for SQL file
+		$filename = 'language_backup_' . date('YmdHis') . '.sql';
+
+		// Set headers for download
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+		// Output the SQL file to the browser for download
+		echo $sql;
+		exit;
+
+*/
+	}
+
+	public function export_data(){
+		$this->load->helper('download');
+
+		$dir = './assets/images/uploads/';
+		$zipFilename = './assets/exportData.zip';
+		$textFilename = 'export_data.json';
+
+		// Create a new zip archive
+		$zip = new \PhpZip\ZipFile();
+
+		try {
+			$data=array();
+
+			foreach ($_POST['exported_users'] as $exported_user) {
+				$selected_users[] = $exported_user;
+			}
+
+			$export_ids = $_POST['exported_users'];
+			$members = $this->db->where_in('id', $export_ids)->get('member')->result_array();
+
+			foreach ($members as $member){
+				// Add members
+				$data['members'][$member['id']]['member_data'] = $member;
+
+				// Add goals for each member
+				$data['members'][$member['id']]['goals']=$this->db->where('member_id', $member['id'])->get('goals')->result_array();
+
+				foreach ($data['members'][$member['id']]['goals'] as $k => $goal){
+					// Add image to the zip archive
+					if(strlen($goal['photo']) > 5){
+						$zip->addFile($dir . $goal['photo'], $goal['photo']);
+					}
+					// Add area_shared for each goal
+					$data['members'][$member['id']]['goals'][$k]['area_shared'] = $this->db->where('goal_id', $goal['id'])->get('area_shared')->result_array();
+
+					// Add time_period for each goal
+					$data['members'][$member['id']]['goals'][$k]['time_period'] = $this->db->where('goal_id', $goal['id'])->get('time_period')->result_array();
+
+					// Add contacts for each goal
+					$contacts = $this->db->where('goal_id', $goal['id'])->get('goal_contact')->result_array();
+					foreach ($contacts as $contact){
+						$data['members'][$member['id']]['goals'][$k]['contact'] = $this->db->where('id', $contact['contact_id'])->get('contact')->result_array();
+					}
+
+					// Add contacts for each member
+					$contacts = $this->db->where('member_id', $member['id'])->get('member_contact')->result_array();
+					foreach ($contacts as $contact){
+						$data['members'][$member['id']]['member_contact'] = $this->db->where('id', $contact['contact_id'])->get('contact')->result_array();
+					}
+
+					// All goals favouries by this member
+					$data['members'][$member['id']]['fav'] = $this->db->where('member_id', $member['id'])->get('fav')->result_array();
+				}
+			}
+
+			$customText = json_encode($data);
+			$zip->addFromString($textFilename, $customText);
+
+			// Set password
+			if (!empty($_POST['zip_password'])) {
+				$zip->setPassword($_POST['zip_password']);
+			}
+
+			// Save the archive to a file
+			$zip->saveAsFile($zipFilename)->close();
+
+			// Download the zip file
+			force_download($zipFilename, NULL);
+		} catch (\PhpZip\Exception\ZipException $e) {
+			// Handle exception
+			die("55001 An error occurred: " . $e->getMessage());
+		} catch (\Exception $e) {
+			// Handle exception
+			die("96002 An error occurred: " . $e->getMessage());
+		}
+	}
+
+
+
+	public function import_userdata(){
+		$config['upload_path'] = './assets/uploads_csv/';
+		$config['max_size'] = '10000000';
+		$config['allowed_types'] = '*';
+		$this->load->library('upload');
+		$new_data_ids = array();
+		$this->upload->initialize($config);
+		$password=$_POST['zip_password'];
+		if (!$this->upload->do_upload('file')) {
+			$error = $this->upload->display_errors();
+			echo $error;
+		} else {
+			$file_data = $this->upload->data();
+			$zipFilename = './assets/uploads_csv/' . $file_data['file_name'];
+			$extractDir = './assets/images/uploads/';
+
+			// Open the zip file
+			$zip = new \PhpZip\ZipFile();
+
+			try {
+
+				$zip->openFile($zipFilename)->setReadPassword($password);
+				// Extract the images to the specified directory
+				$zip->extractTo($extractDir);
+
+				// Read the custom text file
+				$textFilename = 'export_data.json';
+				$textContent = $zip->getEntryContents($textFilename);
+
+				// Close the zip file
+				$zip->close();
+
+				$data = json_decode($textContent, true);
+				// rest of your import logic here...
+
+			} catch (\PhpZip\Exception\ZipException $e) {
+				// Handle exception
+				die("An error occurred: " . $e->getMessage());
+			} catch (\Exception $e) {
+				// Handle exception
+				die("An error occurred: " . $e->getMessage());
+			}
+
+				$duplicates = 0;
+				$additions = 0;
+				$userdatas = $data['members'];
+
+
+
+				foreach ($userdatas as $userdata){
+					$member = $userdata['member_data'];
+					$old_member_id = $member['id'];
+					unset($member['id']);
+					$member_already = $this->db->where('email', $member['email'])->get('member')->result_array();
+					if(sizeof($member_already)){
+						$duplicates++;
+					}else {
+						$this->db->insert('member', $member);
+						$member_id = $this->db->insert_id();
+
+						$new_data_ids['member'][$old_member_id] = $member_id;
+
+						$goals_data = $userdata['goals'];
+						foreach ($goals_data as $g_datum){
+							$area_shared = $g_datum['area_shared'];
+							$time_period = $g_datum['time_period'];
+							$contact = $g_datum['contact'];
+							unset($g_datum['area_shared']);
+							unset($g_datum['time_period']);
+							unset($g_datum['contact']);
+							$old_goal_id = $g_datum['id'];
+							unset($g_datum['id']);
+							$g_datum['member_id'] = $member_id;
+
+							$this->db->insert('goals', $g_datum);
+							$goal_id = $this->db->insert_id();
+
+							$new_data_ids['goals'][$old_goal_id] = $goal_id;
+
+							foreach ($area_shared as $area_single){
+								unset($area_single['id']);
+								$area_single['goal_id'] = $goal_id;
+								$this->db->insert('area_shared', $area_single);
+							}
+
+							foreach ($time_period as $tp){
+								unset($tp['id']);
+								$tp['goal_id'] = $goal_id;
+								$this->db->insert('time_period', $tp);
+							}
+
+							foreach ($contact as $ct){
+								unset($ct['id']);
+								$contac = $this->db->insert('contact', $ct);
+
+								$goal_ct = array(
+									'contact_id' => $contac,
+									'goal_id' => $goal_id
+								);
+								$this->db->insert('goal_contact', $goal_ct);
+							}
+
+
+						}
+						$additions++;
+					}
+				}
+
+				foreach ($userdatas as $userdata) {
+					foreach ($userdata['fav'] as $favv) {
+						$user_id = @$new_data_ids['member'][$favv['member_id']];
+						$goal_id = @$new_data_ids['goals'][$favv['goal_id']];
+						if($user_id>0 && $goal_id>0) {
+							$ins = array(
+								'goal_id' => $goal_id,
+								'member_id' => $user_id
+							);
+							$this->db->insert('fav', $ins);
+						}
+					}
+				}
+
+
+
+		}
+
+return redirect('admin/all_users');
+	}
+
+	public function download_images(){
+
+		$dirPath = './assets/images/uploads/'; // Replace with the actual directory path
+
+	// Create a zip archive
+		$zip = new ZipArchive();
+		$zipName = 'images.zip';
+		$zipPath = $dirPath . '/' . $zipName;
+
+		if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+			// Get all files in the directory
+			$files = glob($dirPath . '/*.jpg'); // Change the file extension if needed
+
+			// Add each file to the zip archive
+			foreach ($files as $file) {
+				$fileName = basename($file);
+				$zip->addFile($file, $fileName);
+			}
+
+			// Close the zip archive
+			$zip->close();
+
+			// Set appropriate headers for the download
+			header('Content-Type: application/zip');
+			header('Content-Disposition: attachment; filename="' . $zipName . '"');
+			header('Content-Length: ' . filesize($zipPath));
+
+			// Send the zip file to the browser
+			readfile($zipPath);
+
+			// Delete the temporary zip file
+			unlink($zipPath);
+		} else {
+			echo 'Failed to create the zip archive.';
+		}
+
+	}
+
+
+	public function import_language_table(){
+		$config['upload_path'] = './assets/uploads_csv/';
+		$config['allowed_types'] = 'csv';
+		$config['max_size'] = '10000';
+		$this->load->library('upload');
+
+		$this->upload->initialize($config);
+
+		if (!$this->upload->do_upload('sql_file')) {
+			$error = $this->upload->display_errors();
+			echo $error;
+		} else {
+			$file_data = $this->upload->data();
+			$file_path = './assets/uploads_csv/' . $file_data['file_name'];
+
+			if ($this->_import_csv($file_path)) {
+				echo 'Imported language table successfully!';
+
+			} else {
+				echo 'An error occurred while importing the CSV file.';
+
+			}
+		}
+	}
+
+	private function _import_csv($file_path)
+	{
+		$this->db->truncate('language');
+
+		$csv_data = array_map('str_getcsv', file($file_path));
+		$header = array_shift($csv_data);
+
+		foreach ($csv_data as $row) {
+			$user_data = array(
+				'lang_key' => $row[0],
+				'lang_value' => $row[1],
+				'notes' => $row[2]
+			);
+			$this->db->insert('language', $user_data);
+		}
+
+		return true;
+	}
+
+
+
+	public function general_settings()
+	{
 
 
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$data['title'] = 'Settings';
 
@@ -187,10 +565,10 @@ class Admin extends CI_Controller
 		$this->load->view('admin/side_nav');
 		$this->load->view('admin/general_settings', $data);
 		$this->load->view('global/footer', $data);
-
 	}
 
-	public function update_general_setting($id){
+	public function update_general_setting($id)
+	{
 		$upd = array(
 			'value' => $_POST['value']
 		);
@@ -203,7 +581,7 @@ class Admin extends CI_Controller
 
 		// validate
 		// decode JSON to array and confirm if the array size is greater than 20
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		// if is_array(json_decode($lang), true) && sizeof/count($array) > 20
 		if (is_array(json_decode($lang, true)) && count($data['language']) > 20) {
 			// update file using file_put_contents OR fopen PHP functions
@@ -281,7 +659,7 @@ class Admin extends CI_Controller
 	public function add_users()
 	{
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		$data['title'] = 'Add User';
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
@@ -301,7 +679,7 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'Email Templates';
@@ -317,14 +695,27 @@ class Admin extends CI_Controller
 
 	public function get_email_template($id)
 	{
-
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
 		$email_template = $this->db->where('id', $id)->get('email_templates')->result_array()[0];
 		echo json_encode($email_template);
+	}
 
+	public function get_keyword($id)
+	{
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
+		$email_template = $this->db->where('id', $id)->get('language')->result_array()[0];
+		echo json_encode($email_template);
 	}
 
 	public function save_email()
 	{
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
 		$upd = array(
 			'body' => $_POST['body'],
 			'subject' => $_POST['subject'],
@@ -335,10 +726,37 @@ class Admin extends CI_Controller
 	}
 
 
+	public function update_keyword()
+	{
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
+		$upd = array(
+			'lang_value' => $_POST['lang_value'],
+			'notes' => $_POST['notes'],
+		);
+
+		$this->db->where('id', $_POST['id'])->update('language', $upd);
+	}
+
+	public function new_keyword()
+	{
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
+		$upd = array(
+			'lang_value' => $_POST['lang_value'],
+			'lang_key' => $_POST['lang_key'],
+		);
+
+		$this->db->insert('language', $upd);
+	}
+
+
 
 	public function login()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		$data['title'] = 'Login';
 		$this->load->view('global/header', $data);
 		$this->load->view('admin/login', $data);
@@ -397,7 +815,7 @@ class Admin extends CI_Controller
 	}
 	public function account_settings()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
@@ -485,7 +903,7 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'All Users';
@@ -506,7 +924,7 @@ class Admin extends CI_Controller
 	{
 		// print_r($id);die();
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$data['users'] = $this->db->where('id', $id)->get('member')->result_array()[0];
 
@@ -560,6 +978,12 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=add-new'));
 		}
+		$this->db->where(array("member_id" => $id));
+		$this->db->delete('goals');
+
+		$this->db->where(array("member_id" => $id));
+		$this->db->delete('fav');
+
 		$this->db->where(array("id" => $id));
 		$this->db->delete('member');
 		redirect('admin/all_users');
@@ -571,7 +995,7 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$data['title'] = 'Public chat';
 

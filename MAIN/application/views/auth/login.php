@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title><?= $title; ?> | <?php echo $language['app_name_goalpost']; ?></title>
+	<title><?= $title; ?> | <?php echo get_lang('lang_offers_and_needs'); ?></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
 
@@ -256,7 +256,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="<?php echo base_url(); ?>"><?php echo $language['app_name_goalpost']; ?></a>
+			<a class="navbar-brand" href="<?php echo base_url(); ?>"><?php echo get_setting_value('app_name'); ?></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -267,16 +267,16 @@
 
 					<li class="nav-item">
 						<a class="nav-link" href="<?php echo base_url(); ?>welcome/offers"><i class="fa fa-earth"></i>
-							<?php echo $language['nav_offers_text']; ?></a>
+							<?php echo get_lang('lang_offers'); ?></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url(); ?>welcome/needs"><i class="fa fa-heart"></i> <?php echo $language['nav_needs_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url(); ?>welcome/needs"><i class="fa fa-heart"></i> <?php echo get_lang('lang_needs'); ?></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url(); ?>welcome/chat"><i class="fa fa-comments"></i> <?php echo $language['nav_chat_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url(); ?>welcome/chat"><i class="fa fa-comments"></i> <?php echo get_lang('lang_chat'); ?></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url(); ?>member"><i class="fa fa-user"></i> <?php echo $language['nav_signin_text']; ?></a>
+						<a class="nav-link" href="<?php echo base_url(); ?>member"><i class="fa fa-user"></i> <?php echo get_lang('lang_sign_in'); ?></a>
 					</li>
 				</ul>
 
@@ -289,10 +289,10 @@
 			<div class="step">
 				<h2 class="main-heading" >
 
-					<?php echo $language['login_page_welcome'] ?></h2>
-				<h3 style="color: #fff"><?php echo $language['login_page_enter_your_email'] ?></h3>
+					<?php echo get_lang('lang_welcome') ?></h2>
+				<h3 style="color: #fff"><?php echo get_lang('lang_please_enter_your_email') ?></h3>
 
-				<input name="email" autofocus="autofocus" type="email" class="form-control main-single-inp" id="email_login" placeholder="<?php echo $language['login_page_input_placeholder'] ?>" style="" value="<?php echo isset($_GET['user']) ? $_GET['user'] : ''; ?>" required>
+				<input name="email" autofocus="autofocus" type="email" class="form-control main-single-inp" id="email_login" placeholder="<?php echo get_lang('lang_john_example_com') ?>" style="" value="<?php echo isset($_GET['user']) ? $_GET['user'] : ''; ?>" required>
 
 
 				<?php
@@ -302,13 +302,13 @@
 				?>
 
 
-						<strong style="color: #fff;"><?php echo $language['login_page_error'] ?>!</strong> <a href="<?php echo base_url(); ?>welcome/forgot_password"" style="color: #fff; text-decoration: none;" ><?php echo $language['login_page_error_detail'] ?></a>
+						<strong style="color: #fff;"><?php echo get_lang('lang_error') ?>!</strong> <a href="<?php echo base_url(); ?>welcome/forgot_password"" style="color: #fff; text-decoration: none;" ><?php echo get_lang('lang_email_already_associated') ?></a>
 
 					<?php
 					} elseif ($_GET['er'] == 'invalid') {
 					?>
 
-						<strong style="color: #fff;"><?php echo $language['login_page_invalid_detail'] ?>!</strong><a style="color: #fff; text-decoration: none;" href="<?php echo base_url(); ?>welcome/forgot_password"><?php echo $language['login_page_invalid_detail_message'] ?></a>
+						<strong style="color: #fff;"><?php echo get_lang('lang_invalid_details') ?>!</strong><a style="color: #fff; text-decoration: none;" href="<?php echo base_url(); ?>welcome/forgot_password"><?php echo get_lang('lang_incorrect_password') ?></a>
 
 					<?php
 					}
@@ -316,7 +316,7 @@
 				} elseif (isset($_GET['n'])) {
 					?>
 					<div style="max-width: 500px; margin: auto; font-size: 13px; border: none" class="alert alert-warning  fade show" role="alert">
-						<?php echo $language['login_page_login_before_adding_a_new_goal'] ?></div>
+						<?php echo get_lang('lang_please_login_before_adding_a_new_offer_or_need') ?></div>
 				<?php
 				}
 
@@ -328,38 +328,38 @@
 			</div>
 
 			<div class="step password_step" style="display: none;">
-				<h2 class="sub-heading" style=""><?php echo $language['login_page_enter_your_password'] ?></h2>
-				<h3 class="heading-small" style="color: #fff"><?php echo $language['login_page_enter_your_password_below'] ?></h3>
+				<h2 class="sub-heading" style=""><?php echo get_lang('lang_enter_your_password') ?></h2>
+				<h3 class="heading-small" style="color: #fff"><?php echo get_lang('lang_please_enter_your_password_below') ?></h3>
 
 				<div class="d-flex" style="justify-content: space-between; max-width: 433px; margin: auto;margin-top: 15px;color: #686bd2;">
-					<div style="margin:0px auto;"> <a href="<?php echo base_url('welcome/forgot_password'); ?>" style="margin:0px auto; color: #686bd2;font-weight: 600;"> <?php echo $language['login_page_forgot_password'] ?></a>
+					<div style="margin:0px auto;"> <a href="<?php echo base_url('welcome/forgot_password'); ?>" style="margin:0px auto; color: #686bd2;font-weight: 600;"> <?php echo get_lang('lang_forgot_password') ?></a>
 					</div>
 				</div>
 
 				<div style="display: inline-block">
-					<input type="password" class="form-control main-single-inp" id="password_inp_login" placeholder="<?php echo $language['login_page_input_placeholder_your_password'] ?>" style="max-width: 300px">
+					<input type="password" class="form-control main-single-inp" id="password_inp_login" placeholder="<?php echo get_lang('lang_your_password') ?>" style="max-width: 300px">
 					<i onclick="$('#password_inp_login').attr('type', 'text'); $(this).hide(); $('.fa-eye-low-vision').show();" style="color: white;position:relative;top: -35px;right: 7px;float: right;font-size: 20px;height: 30px;width: 30px;line-height: 30px;cursor: pointer;" class="fa fa-eye"></i>
 					<i onclick="$('#password_inp_login').attr('type', 'password');  $(this).hide(); $('.fa-eye').show();" style="display: none ;color: white;position:relative;top: -35px;right: 7px;float: right;font-size: 20px;height: 30px;width: 30px;line-height: 30px;cursor: pointer;" class="fa fa-eye-low-vision"></i>
 				</div>
 				<br />
-				<a class="next-btn-circle" style="width: auto;display: inline-block;border-radius: 25px;clear: both;padding: 0px 38px;border: none; box-shadow: none; color: #4caf9d; cursor: pointer;line-height:  44px;text-decoration: none;font-size: 25px;" onclick="login_user(this);"><?php echo $language['login_page_sign_in']; ?>!
+				<a class="next-btn-circle" style="width: auto;display: inline-block;border-radius: 25px;clear: both;padding: 0px 38px;border: none; box-shadow: none; color: #4caf9d; cursor: pointer;line-height:  44px;text-decoration: none;font-size: 25px;" onclick="login_user(this);"><?php echo get_lang('lang_sign_in'); ?>!
 				</a>
 
 			</div>
 
 			<div class="step no_match" style="display: none;">
-				<h2 class="sub-heading" style=""><?php echo $language['login_page_oops_message']; ?></h2>
-				<h3 class="heading-small" style="color: #fff"><?php echo $language['login_page_create_account_clicking_the_button_below']; ?>: </h3>
+				<h2 class="sub-heading" style=""><?php echo get_lang('lang_oops_this_email_does_not_match_with_any_account'); ?></h2>
+				<h3 class="heading-small" style="color: #fff"><?php echo get_lang('lang_but_you_can_create_an_account_simply_by_clicking_the_button_below'); ?>: </h3>
 
 
 				<br />
-				<a href="#" class="next-btn-circle" style="width: auto;display: inline-block;border-radius: 25px;clear: both;padding: 0px 38px;border: none; box-shadow: none; color: #4caf9d; cursor: pointer;line-height:  44px;text-decoration: none;font-size: 25px;" onclick="$('.step').hide(); $('.step.new_account').show();"><?php echo $language['login_page_singn_up_now']; ?>!
+				<a href="#" class="next-btn-circle" style="width: auto;display: inline-block;border-radius: 25px;clear: both;padding: 0px 38px;border: none; box-shadow: none; color: #4caf9d; cursor: pointer;line-height:  44px;text-decoration: none;font-size: 25px;" onclick="$('.step').hide(); $('.step.new_account').show();"><?php echo get_lang('lang_sign_up_now'); ?>!
 				</a>
 			</div>
 
 			<div class="step new_account" style="display: none; max-width: 449px; margin: auto">
-				<h2 class="sub-heading" style=""><?php echo $language['login_page_last_step']; ?> ;)</h2>
-				<h3 class="heading-small" style="color: #fff"><?php echo $language['login_page_enter_your_detail_below']; ?>:</h3>
+				<h2 class="sub-heading" style=""><?php echo get_lang('lang_the_last_step'); ?> ;)</h2>
+				<h3 class="heading-small" style="color: #fff"><?php echo get_lang('lang_please_enter_your_details_below'); ?>:</h3>
 
 
 				<div>
@@ -376,28 +376,28 @@
 					</div> --> 
 
 					<input style="font-size: 20px;" class="form-control main-single-inp" type="file" name="photo">
-					<span style="color: white;display: block;text-align: le;font-style: italic;font-size: 13px;"><?php echo $language['login_page_add_your_photo']; ?></span>
+					<span style="color: white;display: block;text-align: le;font-style: italic;font-size: 13px;"><?php echo get_lang('lang_add_your_photo'); ?></span>
 				</div>
 				<div>
-					<input type="text" class="form-control main-single-inp" name="name" id="name_inp" placeholder="<?php echo $language['login_page_your_name']; ?>" style="max-width: 433px" value="">
+					<input type="text" class="form-control main-single-inp" name="name" id="name_inp" placeholder="<?php echo get_lang('lang_your_name'); ?>" style="max-width: 433px" value="">
 				</div>
 				<div>
-					<input type="text" class="form-control main-single-inp" name="phone" id="phone_inp" placeholder="<?php echo $language['login_page_your_phone_number']; ?>" style="max-width: 433px" value="">
-				</div>
-
-
-				<div>
-					<input type="email" class="form-control main-single-inp" name="email" id="new_email_inp" placeholder="<?php echo $language['login_page_your_email']; ?>" style="max-width: 433px" value="">
+					<input type="text" class="form-control main-single-inp" name="phone" id="phone_inp" placeholder="<?php echo get_lang('lang_phone_number'); ?>" style="max-width: 433px" value="">
 				</div>
 
+
 				<div>
-					<input type="password" class="form-control main-single-inp" name="password" id="password_inp" placeholder="<?php echo $language['login_page_input_placeholder_your_password']; ?>" style="max-width: 433px">
+					<input type="email" class="form-control main-single-inp" name="email" id="new_email_inp" placeholder="<?php echo get_lang('lang_your_email'); ?>" style="max-width: 433px" value="">
+				</div>
+
+				<div>
+					<input type="password" class="form-control main-single-inp" name="password" id="password_inp" placeholder="<?php echo get_lang('lang_your_password'); ?>" style="max-width: 433px">
 					<i onclick="$('#password_inp').attr('type', 'text'); $(this).hide(); $('.fa-eye-low-vision').show();" style="color: white;position:relative;top: -35px;right: 7px;float: right;font-size: 20px;height: 30px;width: 30px;line-height: 30px;cursor: pointer;" class="fa fa-eye"></i>
 					<i onclick="$('#password_inp').attr('type', 'password');  $(this).hide(); $('.fa-eye').show();" style="display: none ;color: white;position:relative;top: -35px;right: 7px;float: right;font-size: 20px;height: 30px;width: 30px;line-height: 30px;cursor: pointer;" class="fa fa-eye-low-vision"></i>
 				</div>
 
 				<br />
-				<a href="#" class="next-btn-circle" style="width: auto;display: inline-block;border-radius: 25px;clear: both;padding: 0px 38px;border: none; box-shadow: none; color: #4caf9d; cursor: pointer;line-height:  44px;text-decoration: none;font-size: 25px;" onclick="submit_form(this);"><?php echo $language['login_page_sign_up']; ?>!
+				<a href="#" class="next-btn-circle" style="width: auto;display: inline-block;border-radius: 25px;clear: both;padding: 0px 38px;border: none; box-shadow: none; color: #4caf9d; cursor: pointer;line-height:  44px;text-decoration: none;font-size: 25px;" onclick="submit_form(this);"><?php echo get_lang('lang_sign_up'); ?>!
 				</a>
 			</div>
 

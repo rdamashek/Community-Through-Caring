@@ -12,7 +12,7 @@ class Member extends CI_Controller
 	public function index()
 	{
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		if (isset($_SESSION['user'])) {
@@ -24,7 +24,7 @@ class Member extends CI_Controller
 
 	public function dashboard()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		
@@ -49,7 +49,7 @@ class Member extends CI_Controller
 
 	public function my_offers()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		if (!isset($_SESSION['user']) ) {
 			redirect(base_url('welcome/login?n=add-new'));
 		}
@@ -67,7 +67,7 @@ class Member extends CI_Controller
 
 	public function my_needs()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?n=add-new'));
 		}
@@ -115,7 +115,7 @@ class Member extends CI_Controller
 	// }
 	public function account_settings()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?n=add-new'));
 		}
@@ -166,7 +166,7 @@ class Member extends CI_Controller
 	public function update_member_password()
 	
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		
 		$member_pass = $this->db->select('password')->from('member')->where('id', $_SESSION['user']['id'])->get()->result_array()[0];
@@ -196,7 +196,7 @@ class Member extends CI_Controller
 
 	public function change_password()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'Change Password';
@@ -213,7 +213,7 @@ class Member extends CI_Controller
 
 	public function create_goal()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?redirect=member_create_goal'));
@@ -302,7 +302,7 @@ class Member extends CI_Controller
 
 	public function create_offer()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?n=add-new'));
@@ -318,7 +318,7 @@ class Member extends CI_Controller
 
 	public function create_need()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?n=add-new'));
@@ -458,7 +458,7 @@ class Member extends CI_Controller
 	public function edit_offer($id)
 	{
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$data['goal'] = $this->db->where('id', $id)->get('goals')->result_array()[0];
 		$data['period'] = @$this->db->where('goal_id', $id)->get('time_period')->result_array()[0];
@@ -490,7 +490,7 @@ class Member extends CI_Controller
 	public function edit_need($id)
 	{
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['goal'] = $this->db->where('id', $id)->get('goals')->result_array()[0];

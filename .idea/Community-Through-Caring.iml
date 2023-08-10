@@ -4,5 +4,42 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="singlehtml" />
+    <orderEntry type="module" module-name="dome" />
+    <orderEntry type="module" module-name="farstad-alu-warehouse-main" />
+    <orderEntry type="module" module-name="4" />
+    <orderEntry type="module" module-name="MAIN" />
+    <orderEntry type="module" module-name="New folder" />
+    <orderEntry type="module" module-name="slider" />
+    <orderEntry type="module" module-name="slick" />
+    <orderEntry type="module" module-name="zampi_main" />
+    <orderEntry type="module" module-name="pdf" />
+    <orderEntry type="module" module-name="IIS" />
+    <orderEntry type="module" module-name="html5-video" />
+    <orderEntry type="module" module-name="avenues" />
+    <orderEntry type="module" module-name="zampi_editor" />
+    <orderEntry type="module" module-name="jQuery-Plugin-For-Aligning-Elements-As-A-Mosaic-jMosaic" />
+    <orderEntry type="module" module-name="slider2" />
+    <orderEntry type="module" module-name="Masonry-css" />
+    <orderEntry type="module" module-name="whitecourt_php" />
+    <orderEntry type="module" module-name="multi_tenant" />
+    <orderEntry type="module" module-name="countrymanager" />
+    <orderEntry type="module" module-name="sohealthy" />
+    <orderEntry type="module" module-name="zoom_call" />
+    <orderEntry type="module" module-name="zoom-php" />
+    <orderEntry type="module" module-name="zoom-api" />
+    <orderEntry type="module" module-name="sample-app-web" />
+    <orderEntry type="module" module-name="zoom-meeting-php-main" />
+    <orderEntry type="module" module-name="Zoom-OAuth-API-with-PHP-master" />
+    <orderEntry type="module" module-name="htdocs" />
+    <orderEntry type="module" module-name="Blu Opal" />
+    <orderEntry type="module" module-name="wct_01" />
+    <orderEntry type="module" module-name="wct_asp" />
+    <orderEntry type="module" module-name="convert-to-php" />
+    <orderEntry type="module" module-name="Blu Opals" />
+    <orderEntry type="module" module-name="Wsj" />
+    <orderEntry type="module" module-name="booking" />
+    <orderEntry type="module" module-name="4-avenues" />
+    <orderEntry type="module" module-name="matter-js" />
   </component>
 </module>

@@ -89,7 +89,7 @@ input.main-single-inp {
 
 <div class="container text-center offset-md-2 col-md-10 auth-container" style="margin-top: 15vh;">
 	<div class="col-md-8" style="margin: auto; color: white">
-		<h3 class="text-center"><?php echo $language['change_pass_page_change_password']; ?></h3>
+		<h3 class="text-center"><?php echo get_lang('lang_change_password'); ?></h3>
 
 		<?php
 		if (isset($_GET['old_pass_not_match'])) {
@@ -97,7 +97,7 @@ input.main-single-inp {
 
 			<div class="alert alert-warning">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong><?php echo $language['change_pass_page_error']; ?></strong> <?php echo $language['change_pass_page_error_message']; ?>
+				<strong><?php echo get_lang('lang_error'); ?></strong> <?php echo get_lang('lang_old_password_is_incorrect'); ?>
 			</div>
 
 		<?php
@@ -107,7 +107,7 @@ input.main-single-inp {
 
 			<div class="alert alert-warning">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong><?php echo $language['change_pass_page_error']; ?></strong> <?php echo $language['change_pass_page_error_password_message']; ?>
+				<strong><?php echo get_lang('lang_error'); ?></strong> <?php echo get_lang('lang_password_and_confirmation_password_do_not_match'); ?>
 			</div>
 
 		<?php
@@ -120,20 +120,20 @@ input.main-single-inp {
 
 
 			<div style="margin-top: 15px">
-				<input type="password" <?php echo $_SESSION['user']['password']; ?> id="offer_price" class="form-control main-single-inp" name="old_password" placeholder="<?php echo $language['change_pass_page_input_old_pass']; ?>">
+				<input type="password" <?php echo $_SESSION['user']['password']; ?> id="offer_price" class="form-control main-single-inp" name="old_password" placeholder="<?php echo get_lang('lang_old_password'); ?>">
 			</div>
 
 			<hr>
 			<div style="margin-top: 15px">
-				<input type="password" id="offer_price" class="form-control main-single-inp" name="new_password" placeholder="<?php echo $language['change_pass_page_input_new_pass']; ?>">
+				<input type="password" id="offer_price" class="form-control main-single-inp" name="new_password" placeholder="<?php echo get_lang('lang_new_password'); ?>">
 			</div>
 			<div style="margin-top: 15px">
-				<input type="password" id="offer_price" class="form-control main-single-inp" name="confirm_password" placeholder="<?php echo $language['change_pass_page_input_confirm_new_pass']; ?>">
+				<input type="password" id="offer_price" class="form-control main-single-inp" name="confirm_password" placeholder="<?php echo get_lang('lang_confirm_new_password'); ?>">
 			</div>
 
 
 			<div style="margin-top: 15px">
-				<button type="submit" style="background-color: #fff; color: #288171; cursor:pointer;width: auto;margin: auto;margin-top: 35px;" class="form-control"><i class="fa fa-check"></i> <?php echo $language['change_pass_page_button_update_pass']; ?></button>
+				<button type="submit" style="background-color: #fff; color: #288171; cursor:pointer;width: auto;margin: auto;margin-top: 35px;" class="form-control"><i class="fa fa-check"></i> <?php echo get_lang('lang_update_password'); ?></button>
 			</div>
 
 

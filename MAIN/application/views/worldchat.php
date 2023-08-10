@@ -220,9 +220,9 @@
 </style>
 
 <div class="container" id="chat-container" style="margin-top: 75px">
-	<p style="color: white;"><?php echo $language['worldchat_page_welcome_to_public_chat'] ?></p>
+	<p style="color: white;"><?php echo get_lang('lang_welcome_to_public_chat') ?></p>
 	<div class="window">
-		<div class="header"><?php echo $language['worldchat_publicchat_text'] ?></div>
+		<div class="header"><?php echo get_lang('lang_public_chat') ?></div>
 		<div class="chats" id="chats-messages" style="overflow-y: auto; display: block; overflow-x: hidden; max-height: calc(100% - 110px);">
 			<?php
 			foreach ($messages as $message) {
@@ -273,17 +273,17 @@
 	<div class="modal-dialog" role="document" style="    margin-top: 20vh;">
 		<div class="modal-content" >
 			<div class="modal-header">
-				<h5 class="modal-title"><?php echo $language['worldchat_model_Login'] ?></h5>
+				<h5 class="modal-title"><?php echo get_lang('lang_sign_in') ?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<?php echo $language['worldchat_model_Login_info'] ?>
+				<?php echo get_lang('lang_please_sign_in_before_participating_in_the_chat') ?>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $language['worldchat_model_close'] ?></button>
-				<button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url('welcome/login?redirect=welcome_chat'); ?>'"><?php echo $language['worldchat_model_login_now'] ?></button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo get_lang('lang_close') ?></button>
+				<button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url('welcome/login?redirect=welcome_chat'); ?>'"><?php echo get_lang('lang_sign_in_now') ?></button>
 			</div>
 		</div>
 	</div>
@@ -311,7 +311,7 @@
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" style="background-color: #5CCAB6;" data-dismiss="modal"><?php echo $language['worldchat_model_close'] ?></button>
+				<button type="button" class="btn btn-secondary" style="background-color: #5CCAB6;" data-dismiss="modal"><?php echo get_lang('lang_close') ?></button>
 
 			</div>
 		</div>

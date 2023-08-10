@@ -49,6 +49,18 @@ if ( ! function_exists('get_setting_value'))
 
 }
 
+if ( ! function_exists('get_lang'))
+{
+	function get_lang($val_name) {
+		$CI = get_instance();
+
+		return $CI->db->where('lang_key', $val_name)->get('language')->result_array()[0]['lang_value'];
+
+	}
+
+
+}
+
 if ( ! function_exists('get_email_template'))
 {
 	function get_email_template($template_name) {
@@ -61,8 +73,14 @@ if ( ! function_exists('get_email_template'))
 
 }
 
-
-
+if ( ! function_exists('clean'))
+{
+function clean($string) {
+	$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+ 
+	return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+ }
+}
 
 
 

@@ -201,7 +201,7 @@
 		</div>
 	<?php } ?>
 	<div class="col-md-8" style="margin: auto; color: white">
-		<h3 class="text-center"><?php echo $language['account_setting_page']; ?></h3>
+		<h3 class="text-center"><?php echo get_lang('lang_account_settings'); ?></h3>
 
 		<form method="post" enctype="multipart/form-data" action="<?php echo base_url('member/update_member_account'); ?>">
 
@@ -209,11 +209,11 @@
 			<div style="margin-top: 15px">
 
 				<label for="image_display" style="max-width:100%;width: 460px;margin: auto;padding: 15px;border: 2px solid white;border-radius: 25px;background-color: #46af9d;">
-					<label style="display: block;margin-bottom: 15px;"><?php echo $language['account_settings_your_photo']; ?></label>
+					<label style="display: block;margin-bottom: 15px;"><?php echo get_lang('lang_your_photo'); ?></label>
 					<img class="user-img" style="height: 80px;width: 80px;border-radius: 50%;" src="<?php echo base_url('assets/images/uploads/thumb/' . $_SESSION['user']['photo']) ?>"></label>
 				<button onclick="" type="button" class="choice-button">
 					<label for="file_input" style="display: contents;">
-						<span id="button-text"><?php echo $language['account_settings_change_photo']; ?></span>
+						<span id="button-text"><?php echo get_lang('lang_change_photo'); ?></span>
 						<div class="choice-icons">
 							<div class="upload-icon">
 								<input id="file_input" type="file" name="goal_image" style="display: none;">
@@ -231,27 +231,27 @@
 
 			</div>
 			<div style="margin-top: 15px">
-				<input type="text" id="offer_price" value="<?php echo $_SESSION['user']['name']; ?>" class="form-control main-single-inp" name="name" placeholder="<?php echo $language['account_settings_input_lable_name']; ?>">
-				<span style="color: white;display: block;text-align: le;font-style: italic;font-size: 13px;"><?php echo $language['account_settings_input_lable_name']; ?></span>
+				<input type="text" id="offer_price" value="<?php echo $_SESSION['user']['name']; ?>" class="form-control main-single-inp" name="name" placeholder="<?php echo get_lang('lang_name'); ?>">
+				<span style="color: white;display: block;text-align: le;font-style: italic;font-size: 13px;"><?php echo get_lang('lang_name'); ?></span>
 
 			</div>
 			<div style="margin-top: 15px">
-				<input type="text" id="offer_price" value="<?php echo $_SESSION['user']['email']; ?>" class="form-control main-single-inp" name="email" placeholder="<?php echo $language['account_settings_input_lable_email']; ?>" readonly="readonly">
-				<span style="color: white;display: block;text-align: le;font-style: italic;font-size: 13px;"><?php echo $language['account_settings_input_lable_email']; ?></span>
+				<input type="text" id="offer_price" value="<?php echo $_SESSION['user']['email']; ?>" class="form-control main-single-inp" name="email" placeholder="<?php echo get_lang('lang_email_address'); ?>" readonly="readonly">
+				<span style="color: white;display: block;text-align: le;font-style: italic;font-size: 13px;"><?php echo get_lang('lang_email_address'); ?></span>
 			</div>
 			<div style="margin-top: 15px">
-				<input type="text" id="offer_price" class="form-control main-single-inp" name="phone" value="<?php echo $_SESSION['user']['phone']; ?>" placeholder="<?php echo $language['account_settings_input_lable_phone']; ?>">
-				<span style="color: white;display: block;text-align: le;font-style: italic;font-size: 13px;"><?php echo $language['account_settings_input_lable_phone']; ?></span>
+				<input type="text" id="offer_price" class="form-control main-single-inp" name="phone" value="<?php echo $_SESSION['user']['phone']; ?>" placeholder="<?php echo get_lang('lang_phone_number'); ?>">
+				<span style="color: white;display: block;text-align: le;font-style: italic;font-size: 13px;"><?php echo get_lang('lang_phone_number'); ?></span>
 			</div>
 
 
 			<div style="margin-top: 30px">
-				<button type="button" onclick="window.location='<?php echo base_url('member/change_password'); ?>'" style="background-color: #29af9e;color: white; cursor:pointer;margin-top: 40px;width: 440px;max-width: 100%; margin: auto;margin-top: 48px;border: none;border-bottom: 2px solid;border-radius: 0;" class="form-control"><i class="fa fa-eye" style="margin-right: 15px;"></i><?php echo $language['account_settings_input_lable_password']; ?></button>
+				<button type="button" onclick="window.location='<?php echo base_url('member/change_password'); ?>'" style="background-color: #29af9e;color: white; cursor:pointer;margin-top: 40px;width: 440px;max-width: 100%; margin: auto;margin-top: 48px;border: none;border-bottom: 2px solid;border-radius: 0;" class="form-control"><i class="fa fa-eye" style="margin-right: 15px;"></i><?php echo get_lang('lang_change_password'); ?></button>
 				
 			</div>
 
 			<div style="margin-top: 35px">
-				<button type="submit" style="background-color: #288171; color: white; cursor:pointer; width: 250px; max-width:100%; margin: auto;" class="form-control"><i class="fa fa-check"></i> <?php echo $language['account_settings_input_lable_submit']; ?></button>
+				<button type="submit" style="background-color: #288171; color: white; cursor:pointer; width: 250px; max-width:100%; margin: auto;" class="form-control"><i class="fa fa-check"></i> <?php echo get_lang('lang_submit'); ?></button>
 
 			</div>
 

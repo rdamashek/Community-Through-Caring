@@ -29,9 +29,9 @@
 
 
 				<div style="margin-top: 15px" class="step">
-					<h3 class="text-center"><?php echo $language['email_reset_password_page_enter_auth_code']; ?></h3>
-					<p class="text-center"><?php  echo $language['email_reset_password_page_check_the_spam_folder_for_the_password_reset']; ?></p>
-					<input type="text" id="auth_code" class="form-control main-single-inp" name="auth_code" placeholder="<?php echo $language['email_reset_password_page_placeholder_auth_code']; ?>">
+					<h3 class="text-center"><?php echo get_lang('lang_enter_your_auth_code'); ?></h3>
+					<p class="text-center"><?php  echo get_lang('lang_please_also_check_the_email'); ?></p>
+					<input type="text" id="auth_code" class="form-control main-single-inp" name="auth_code" placeholder="<?php echo get_lang('lang_auth_code'); ?>">
 					<a href="#" class="next-btn-circle" onclick=" authenticate_user(this);"><i class="fa fa-angle-right"></i></a>
 				</div>
 
@@ -39,16 +39,16 @@
 
 				<hr>
 				<div style="margin-top: 15px; display: none;" class="step password_step">
-				<h3 class="text-center"><?php echo $language['email_reset_password_page_change_your_password']; ?></h3>
-					<input type="password" id="new_password" class="form-control main-single-inp" name="new_password" placeholder="<?php echo $language['email_reset_password_page_placeholder_new_password']; ?>">
+				<h3 class="text-center"><?php echo get_lang('lang_change_password'); ?></h3>
+					<input type="password" id="new_password" class="form-control main-single-inp" name="new_password" placeholder="<?php echo get_lang('lang_new_password'); ?>">
 				</div>
 				<div style="margin-top: 15px; display: none;" class="step password_step">
-					<input type="password" id="confirm_password" class="form-control main-single-inp" name="confirm_password" placeholder="<?php echo $language['email_reset_password_page_placeholder_confirm_password']; ?>">
+					<input type="password" id="confirm_password" class="form-control main-single-inp" name="confirm_password" placeholder="<?php echo get_lang('lang_confirmation_password'); ?>">
 				</div>
 
 
 				<div style="margin-top: 15px; display: none;" class="step password_step">
-					<button onclick="change_member_pass(this);" type="button" style="background-color: #fff; color: #288171; cursor:pointer; width: auto;margin: auto;margin-top: 30px;" class="form-control"><i class="fa fa-check"></i> <?php echo $language['email_reset_password_page_button_update_password']; ?></button>
+					<button onclick="change_member_pass(this);" type="button" style="background-color: #fff; color: #288171; cursor:pointer; width: auto;margin: auto;margin-top: 30px;" class="form-control"><i class="fa fa-check"></i> <?php echo get_lang('lang_update_password'); ?></button>
 				</div>
 
 

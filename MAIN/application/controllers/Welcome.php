@@ -26,7 +26,7 @@ class Welcome extends CI_Controller
 	 */
 	public function index()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$data['title'] = 'Home';
 
@@ -43,6 +43,18 @@ class Welcome extends CI_Controller
 		$this->load->view('offers', $data);
 		$this->load->view('global/footer', $data);
 	}
+
+//	public function lang_to_db(){
+//		$file = file_get_contents('language.json');
+//		$lang = json_decode($file, true);
+//		foreach ($lang as $k => $v){
+//			$ins= array(
+//				'lang_key' => $k,
+//				'lang_value' => $v
+//			);
+//			$this->db->insert('language', $ins);
+//		}
+//	}
 	public function needs()
 	{
 		// $language = $this->db->get('language')->result_array();
@@ -50,12 +62,12 @@ class Welcome extends CI_Controller
 		// foreach ($language as $lang) {
 		// 	$data['language'][$lang['word']] = $lang['display_text'];
 		// }
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'Needs';
 
-		$data['goals'] = $this->db->where('type', 'need')->order_by('id', 'desc')->get('goals')->result_array();
+		$data['goals'] = $this->db->select('goals.*, member.name as member_name')->where('goals.type', 'need')->join('member', 'member.id = goals.member_id')->order_by('goals.id', 'desc')->get('goals')->result_array();
 
 		if (@$_SESSION['user']['id'] > 0) {
 			$data['fav'] = $this->db->select('goals.*')->where('fav.member_id', $_SESSION['user']['id'])->where('goals.type', 'need')->join('goals', 'fav.goal_id=goals.id')->order_by('id', 'desc')->get('fav')->result_array();
@@ -71,7 +83,7 @@ class Welcome extends CI_Controller
 
 	public function need_detail($id = '')
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'Need Detail';
@@ -108,7 +120,7 @@ class Welcome extends CI_Controller
 
 	public function offer_detail($id = '')
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'Offer Detail';
@@ -146,7 +158,7 @@ class Welcome extends CI_Controller
 	// =============send email code===============
 	public function contact_member()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$goal_id = $_POST['goal_id'];
 
@@ -213,7 +225,7 @@ class Welcome extends CI_Controller
 		// 	$data['language'][$lang['word']] = $lang['display_text'];
 		// }
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$data['title'] = 'Offers';
 		$limit = 10000;
@@ -277,7 +289,7 @@ class Welcome extends CI_Controller
 	public function chat()
 	{
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$data['title'] = 'Public chat';
 
@@ -291,7 +303,7 @@ class Welcome extends CI_Controller
 
 	public function signup()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'Signup';
@@ -307,7 +319,7 @@ class Welcome extends CI_Controller
 
 	public function signup_handler()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 
@@ -362,7 +374,7 @@ class Welcome extends CI_Controller
 
 	public function login()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		unset($_SESSION['redirect_after_login']);
@@ -441,7 +453,7 @@ class Welcome extends CI_Controller
 
 	public function forgot_password()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		$data['title'] = 'Reset Password';
 		
 		$this->load->view('auth/forgot_password', $data);
 	}
@@ -458,7 +470,6 @@ class Welcome extends CI_Controller
 	}
 	public function sendpassword($data)
 	{
-		$jsonLanguage['language'] = json_decode(file_get_contents(base_url('language.json')), true);
 		$email = $data;
 	$member = $this->db->where('email', $email)->get('member')->result_array();
 
@@ -509,7 +520,7 @@ class Welcome extends CI_Controller
 
 	public function email_reset_pass()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 		$data['title'] = 'Email Reset';
@@ -524,7 +535,7 @@ class Welcome extends CI_Controller
 
 	public function auth_code()
 	{
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 
 
@@ -537,8 +548,8 @@ class Welcome extends CI_Controller
 			$ret['success'] = 'true';
 		} else {
 			$ret['success'] = 'false';
-			$ret['message'] = $data['language']['welcome_page_auth_code_not_match_message'];
-			//<?php echo $language['welcome_page_auth_code_message'] //
+			$ret['message'] = $data['language']['lang_auth_code_does_not_match'];
+			//<?php echo get_lang('welcome_page_auth_code_message') //
 			$ret['authCode_found'] = '0';
 		}
 		echo json_encode($ret);
@@ -550,7 +561,7 @@ class Welcome extends CI_Controller
 	public function update_member_password()
 	{
 
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 
 		$infoMessage = '';
 		if (empty($_POST['newPassword'])) {
@@ -574,11 +585,11 @@ class Welcome extends CI_Controller
 					$ret['message'] = ' updated successfully';
 				} else {
 					$ret['success'] = 'false';
-					$ret['message'] = $data['language']['welcome_page_password_confirm_not_match_message'];
+					$ret['message'] = $data['language']['lang_password_and_confirmation_password_do_not_match'];
 				}
 			} else {
 				$ret['success'] = 'false';
-				$ret['message'] = $data['language']['welcome_page_auth_code_not_match_message'];
+				$ret['message'] = $data['language']['lang_auth_code_does_not_match'];
 				//<?php echo $data['language']['welcome_page_auth_code_message'] //
 			}
 		}
@@ -587,7 +598,7 @@ class Welcome extends CI_Controller
 
 
 	public function about_us(){
-		$data['language'] = json_decode(file_get_contents(base_url('language.json')), true);
+		
 		$data['title'] = 'About Us';
 
 		$this->load->view('global/header', $data);

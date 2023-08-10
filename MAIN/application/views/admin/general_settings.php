@@ -6,7 +6,7 @@
 	.modal-backdrop.fade:not(.show) {
 		opacity: 0.5;
 	}
-
+	
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?php echo base_url('assets/richtext/richtext.min.css'); ?>">
@@ -39,13 +39,13 @@
 			<thead>
 			<tr>
 				<th>#</th>
-				<th><?php //echo $language['my_offers_page_offer_name']
+				<th><?php //echo get_lang('lang_offer_name')
 					?>Setting Name</th>
-				<th><?php //echo $language['my_offers_page_description']
+				<th><?php //echo get_lang('lang_description')
 					?>Value</th>
-				<!-- <th><?php //echo $language['my_offers_page_date_create']
+				<!-- <th><?php //echo get_lang('lang_date_created')
 				?>Photo</th> -->
-				<th><?php //echo $language['my_offers_page_action']
+				<th><?php //echo get_lang('lang_actions')
 					?>Actions</th>
 			</tr>
 			</thead>
@@ -183,27 +183,27 @@
 				}
 			],
 			"language": {
-				"sProcessing": "<?php echo $language['datatable_processing'] ?>...",
-				"sLengthMenu": "<?php echo $language['datatable_show_menu_entries'] ?>",
-				"sZeroRecords": "<?php echo $language['datatable_no_results_found'] ?>",
-				"sEmptyTable": "<?php echo $language['datatable_no_data_avaulable_in_table'] ?>",
-				"sInfo": "<?php echo $language['datatable_showing_start_to_end_of_total_entries'] ?>",
-				"sInfoEmpty": "<?php echo $language['datatable_showing_0_to_0_of_0_entries'] ?>",
-				"sInfoFiltered": "(<?php echo $language['datatable_filtering_a_total_of'] ?> _MAX_ <?php echo $language['datatable_records'] ?>)",
+				"sProcessing": "<?php echo get_lang('lang_processing') ?>...",
+				"sLengthMenu": "<?php echo get_lang('lang_show_menu_entries') ?>",
+				"sZeroRecords": "<?php echo get_lang('lang_no_results_found') ?>",
+				"sEmptyTable": "<?php echo get_lang('lang_no_data_available_in_table') ?>",
+				"sInfo": "<?php echo get_lang('lang_showing_start_to_end_of_total_entries') ?>",
+				"sInfoEmpty": "<?php echo get_lang('lang_showing_0_to_0_of_0_entries') ?>",
+				"sInfoFiltered": "(<?php echo get_lang('lang_filtering_a_total_of') ?> _MAX_ <?php echo get_lang('lang_records') ?>)",
 				"sInfoPostFix": "",
-				"sSearch": "<?php echo $language['datatable_search'] ?>:",
+				"sSearch": "<?php echo get_lang('lang_search') ?>:",
 				"sUrl": "",
 				"sInfoThousands": ",",
-				"sLoadingRecords": "<?php echo $language['datatable_charging'] ?>...",
+				"sLoadingRecords": "<?php echo get_lang('lang_charging') ?>...",
 				"oPaginate": {
-					"sFirst": "<?php echo $language['datatable_first'] ?>",
-					"sLast": "<?php echo $language['datatable_last'] ?>",
-					"sNext": "<?php echo $language['datatable_next'] ?>",
-					"sPrevious": "<?php echo $language['datatable_previous'] ?>"
+					"sFirst": "<?php echo get_lang('lang_first') ?>",
+					"sLast": "<?php echo get_lang('lang_last') ?>",
+					"sNext": "<?php echo get_lang('lang_next') ?>",
+					"sPrevious": "<?php echo get_lang('lang_previous') ?>"
 				},
 				"oAria": {
-					"sSortAscending": ": <?php echo $language['datatable_Check_to_sort_the_column_in_ascending_order'] ?>",
-					"sSortDescending": ": <?php echo $language['datatable_Check_to_sort_column_descending'] ?>"
+					"sSortAscending": ": <?php echo get_lang('lang_check_to_sort_the_column_in_ascending_order') ?>",
+					"sSortDescending": ": <?php echo get_lang('lang_check_to_sort_column_descending') ?>"
 				}
 			}
 		});

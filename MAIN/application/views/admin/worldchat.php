@@ -282,7 +282,7 @@
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" style="background-color: #5CCAB6;" data-dismiss="modal"><?php echo $language['worldchat_model_close'] ?></button>
+				<button type="button" class="btn btn-secondary" style="background-color: #5CCAB6;" data-dismiss="modal"><?php echo get_lang('lang_close') ?></button>
 
 			</div>
 		</div>

@@ -44,10 +44,10 @@
 
 <div class="row container-fluid" style="margin-top: 50px">
 <div id="mySidenav" class="sidenav col-md-2">
-	<a href="<?php echo base_url('member/my_offers'); ?>"><i class="fa fa-earth"></i> &nbsp; <?php echo $language['side_nav_myoffers_text']; ?></a>
-	<a href="<?php echo base_url('member/my_needs'); ?>"><i class="fa fa-heart"></i> &nbsp;<?php echo $language['side_nav_myneeds_text']; ?></a>
-	<a href="<?php echo base_url('member/account_settings'); ?>"><i class="fa fa-gear"></i> &nbsp;<?php echo $language['side_nav_accountsettings_text']; ?></a>
-	<a href="<?php echo base_url('admin/logout'); ?>"><i class="fa fa-power-off"></i> &nbsp;<?php echo $language['side_nav_logout_text']; ?></a>
+	<a href="<?php echo base_url('member/my_offers'); ?>"><i class="fa fa-earth"></i> &nbsp; <?php echo get_lang('lang_my_offers'); ?></a>
+	<a href="<?php echo base_url('member/my_needs'); ?>"><i class="fa fa-heart"></i> &nbsp;<?php echo get_lang('lang_my_needs'); ?></a>
+	<a href="<?php echo base_url('member/account_settings'); ?>"><i class="fa fa-gear"></i> &nbsp;<?php echo get_lang('lang_account_settings'); ?></a>
+	<a href="<?php echo base_url('admin/logout'); ?>"><i class="fa fa-power-off"></i> &nbsp;<?php echo get_lang('lang_sign_out'); ?></a>
 </div>
 
 
