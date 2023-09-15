@@ -8,9 +8,10 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 	}
+
 	public function index()
 	{
-		
+
 
 		$data['title'] = 'Login';
 		$this->load->view('global/header', $data);
@@ -23,7 +24,7 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		
+
 		$data['title'] = 'Dashboard';
 		$this->load->view('global/header', $data);
 		$this->load->view('admin-header-nav/nav', $data);
@@ -44,7 +45,6 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		
 
 
 		$data['title'] = 'My Offers';
@@ -61,7 +61,6 @@ class Admin extends CI_Controller
 	public function edit_offer($id)
 	{
 
-		
 
 		$data['goal'] = $this->db->where('id', $id)->get('goals')->result_array()[0];
 		$data['period'] = @$this->db->where('goal_id', $id)->get('time_period')->result_array()[0];
@@ -82,6 +81,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/member/edit_offer', $data);
 		$this->load->view('global/footer', $data);
 	}
+
 	public function delete_offer($id)
 	{
 		if (!isset($_SESSION['admin'])) {
@@ -94,7 +94,7 @@ class Admin extends CI_Controller
 
 	public function my_needs()
 	{
-		
+
 
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=add-new'));
@@ -114,10 +114,10 @@ class Admin extends CI_Controller
 		$this->load->view('admin/member/my_needs', $data);
 		$this->load->view('global/footer', $data);
 	}
+
 	public function edit_need($id)
 	{
 
-		
 
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
@@ -152,6 +152,54 @@ class Admin extends CI_Controller
 	}
 
 
+	public function update_user_status()
+	{
+		if (!isset($_SESSION['admin'])) {
+			redirect(base_url('admin/login?n=please-login_before'));
+		}
+		if (isset($_POST['user_id']) && isset($_POST['status'])) {
+			$user_id = $_POST['user_id'];
+			$status = $_POST['status'];
+			$up = array('status'=>$status);
+			$this->db->where('id', $user_id)->update('member', $up);
+
+
+			if ($_POST['notify_on_status_update'] == 1) {
+				$member = $this->db->where('id', $user_id)->get('member')->result_array()[0];
+
+				$to = $member['email'];
+				$this->load->model('Common');
+
+				switch ($status) {
+					case '0':
+						$template = get_email_template('user_status_update_pending');
+						break;
+					case '1':
+						$template = get_email_template('user_status_update_approved');
+						break;
+					case '2':
+						$template = get_email_template('user_status_update_denied');
+						break;
+					case '3':
+						$template = get_email_template('user_status_update_restricted');
+						break;
+				}
+
+				$body = $template['body'];
+				$subject = $template['subject'];
+
+
+				$body = str_replace('{{name}}', $member['name'], $body);
+
+
+				$subject = str_replace('{{name}}', $member['name'], $subject);
+
+
+				$this->Common->send_email($to, $subject, $body);
+			}
+		}
+	}
+
 	// ==== language===
 	public function language()
 	{
@@ -159,12 +207,10 @@ class Admin extends CI_Controller
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		 $data['language'] = $this->db->get('language')->result_array();
+		$data['language'] = $this->db->get('language')->result_array();
 
-		
 
 		$data['title'] = 'Language';
-
 
 
 		$this->load->view('global/header', $data);
@@ -190,7 +236,9 @@ class Admin extends CI_Controller
 			$this->db->insert('language', $ins);
 		}
 	}
-	private function array_to_csv($array) {
+
+	private function array_to_csv($array)
+	{
 		$csv = '';
 		$header = array_keys($array[0]);
 		$csv .= implode(',', $header) . "\n";
@@ -202,7 +250,8 @@ class Admin extends CI_Controller
 		return $csv;
 	}
 
-	public function export_langauge(){
+	public function export_langauge()
+	{
 
 		$this->load->helper('url');
 		$this->load->helper('file');
@@ -222,37 +271,38 @@ class Admin extends CI_Controller
 
 		force_download($file_name, $csv_data);
 
-/*
+		/*
 
-		// Select all rows from the language table
-		$this->load->dbutil();
-		$query = $this->db->get('language');
-		$result = $query->result_array();
+				// Select all rows from the language table
+				$this->load->dbutil();
+				$query = $this->db->get('language');
+				$result = $query->result_array();
 
-		// Generate SQL string for all rows
-		$sql = $this->dbutil->backup(array(
-			'tables' => array('language'), // table to backup
-			'format' => 'txt', // format of the backup
-			'add_drop' => TRUE, // Whether to add DROP TABLE statements to backup file
-			'add_insert' => TRUE, // Whether to add INSERT statements to backup file
-			'newline' => "\n" // Character used to separate lines in the backup file
-		));
+				// Generate SQL string for all rows
+				$sql = $this->dbutil->backup(array(
+					'tables' => array('language'), // table to backup
+					'format' => 'txt', // format of the backup
+					'add_drop' => TRUE, // Whether to add DROP TABLE statements to backup file
+					'add_insert' => TRUE, // Whether to add INSERT statements to backup file
+					'newline' => "\n" // Character used to separate lines in the backup file
+				));
 
-		// Set filename for SQL file
-		$filename = 'language_backup_' . date('YmdHis') . '.sql';
+				// Set filename for SQL file
+				$filename = 'language_backup_' . date('YmdHis') . '.sql';
 
-		// Set headers for download
-		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename="' . $filename . '"');
+				// Set headers for download
+				header('Content-Type: application/octet-stream');
+				header('Content-Disposition: attachment; filename="' . $filename . '"');
 
-		// Output the SQL file to the browser for download
-		echo $sql;
-		exit;
+				// Output the SQL file to the browser for download
+				echo $sql;
+				exit;
 
-*/
+		*/
 	}
 
-	public function export_data(){
+	public function export_data()
+	{
 		$this->load->helper('download');
 
 		$dir = './assets/images/uploads/';
@@ -263,7 +313,7 @@ class Admin extends CI_Controller
 		$zip = new \PhpZip\ZipFile();
 
 		try {
-			$data=array();
+			$data = array();
 
 			foreach ($_POST['exported_users'] as $exported_user) {
 				$selected_users[] = $exported_user;
@@ -272,16 +322,16 @@ class Admin extends CI_Controller
 			$export_ids = $_POST['exported_users'];
 			$members = $this->db->where_in('id', $export_ids)->get('member')->result_array();
 
-			foreach ($members as $member){
+			foreach ($members as $member) {
 				// Add members
 				$data['members'][$member['id']]['member_data'] = $member;
 
 				// Add goals for each member
-				$data['members'][$member['id']]['goals']=$this->db->where('member_id', $member['id'])->get('goals')->result_array();
+				$data['members'][$member['id']]['goals'] = $this->db->where('member_id', $member['id'])->get('goals')->result_array();
 
-				foreach ($data['members'][$member['id']]['goals'] as $k => $goal){
+				foreach ($data['members'][$member['id']]['goals'] as $k => $goal) {
 					// Add image to the zip archive
-					if(strlen($goal['photo']) > 5){
+					if (strlen($goal['photo']) > 5) {
 						$zip->addFile($dir . $goal['photo'], $goal['photo']);
 					}
 					// Add area_shared for each goal
@@ -292,13 +342,13 @@ class Admin extends CI_Controller
 
 					// Add contacts for each goal
 					$contacts = $this->db->where('goal_id', $goal['id'])->get('goal_contact')->result_array();
-					foreach ($contacts as $contact){
+					foreach ($contacts as $contact) {
 						$data['members'][$member['id']]['goals'][$k]['contact'] = $this->db->where('id', $contact['contact_id'])->get('contact')->result_array();
 					}
 
 					// Add contacts for each member
 					$contacts = $this->db->where('member_id', $member['id'])->get('member_contact')->result_array();
-					foreach ($contacts as $contact){
+					foreach ($contacts as $contact) {
 						$data['members'][$member['id']]['member_contact'] = $this->db->where('id', $contact['contact_id'])->get('contact')->result_array();
 					}
 
@@ -330,15 +380,15 @@ class Admin extends CI_Controller
 	}
 
 
-
-	public function import_userdata(){
+	public function import_userdata()
+	{
 		$config['upload_path'] = './assets/uploads_csv/';
 		$config['max_size'] = '10000000';
 		$config['allowed_types'] = '*';
 		$this->load->library('upload');
 		$new_data_ids = array();
 		$this->upload->initialize($config);
-		$password=$_POST['zip_password'];
+		$password = $_POST['zip_password'];
 		if (!$this->upload->do_upload('file')) {
 			$error = $this->upload->display_errors();
 			echo $error;
@@ -374,97 +424,96 @@ class Admin extends CI_Controller
 				die("An error occurred: " . $e->getMessage());
 			}
 
-				$duplicates = 0;
-				$additions = 0;
-				$userdatas = $data['members'];
+			$duplicates = 0;
+			$additions = 0;
+			$userdatas = $data['members'];
 
 
+			foreach ($userdatas as $userdata) {
+				$member = $userdata['member_data'];
+				$old_member_id = $member['id'];
+				unset($member['id']);
+				$member_already = $this->db->where('email', $member['email'])->get('member')->result_array();
+				if (sizeof($member_already)) {
+					$duplicates++;
+				} else {
+					$this->db->insert('member', $member);
+					$member_id = $this->db->insert_id();
 
-				foreach ($userdatas as $userdata){
-					$member = $userdata['member_data'];
-					$old_member_id = $member['id'];
-					unset($member['id']);
-					$member_already = $this->db->where('email', $member['email'])->get('member')->result_array();
-					if(sizeof($member_already)){
-						$duplicates++;
-					}else {
-						$this->db->insert('member', $member);
-						$member_id = $this->db->insert_id();
+					$new_data_ids['member'][$old_member_id] = $member_id;
 
-						$new_data_ids['member'][$old_member_id] = $member_id;
+					$goals_data = $userdata['goals'];
+					foreach ($goals_data as $g_datum) {
+						$area_shared = $g_datum['area_shared'];
+						$time_period = $g_datum['time_period'];
+						$contact = $g_datum['contact'];
+						unset($g_datum['area_shared']);
+						unset($g_datum['time_period']);
+						unset($g_datum['contact']);
+						$old_goal_id = $g_datum['id'];
+						unset($g_datum['id']);
+						$g_datum['member_id'] = $member_id;
 
-						$goals_data = $userdata['goals'];
-						foreach ($goals_data as $g_datum){
-							$area_shared = $g_datum['area_shared'];
-							$time_period = $g_datum['time_period'];
-							$contact = $g_datum['contact'];
-							unset($g_datum['area_shared']);
-							unset($g_datum['time_period']);
-							unset($g_datum['contact']);
-							$old_goal_id = $g_datum['id'];
-							unset($g_datum['id']);
-							$g_datum['member_id'] = $member_id;
+						$this->db->insert('goals', $g_datum);
+						$goal_id = $this->db->insert_id();
 
-							$this->db->insert('goals', $g_datum);
-							$goal_id = $this->db->insert_id();
+						$new_data_ids['goals'][$old_goal_id] = $goal_id;
 
-							$new_data_ids['goals'][$old_goal_id] = $goal_id;
-
-							foreach ($area_shared as $area_single){
-								unset($area_single['id']);
-								$area_single['goal_id'] = $goal_id;
-								$this->db->insert('area_shared', $area_single);
-							}
-
-							foreach ($time_period as $tp){
-								unset($tp['id']);
-								$tp['goal_id'] = $goal_id;
-								$this->db->insert('time_period', $tp);
-							}
-
-							foreach ($contact as $ct){
-								unset($ct['id']);
-								$contac = $this->db->insert('contact', $ct);
-
-								$goal_ct = array(
-									'contact_id' => $contac,
-									'goal_id' => $goal_id
-								);
-								$this->db->insert('goal_contact', $goal_ct);
-							}
-
-
+						foreach ($area_shared as $area_single) {
+							unset($area_single['id']);
+							$area_single['goal_id'] = $goal_id;
+							$this->db->insert('area_shared', $area_single);
 						}
-						$additions++;
-					}
-				}
 
-				foreach ($userdatas as $userdata) {
-					foreach ($userdata['fav'] as $favv) {
-						$user_id = @$new_data_ids['member'][$favv['member_id']];
-						$goal_id = @$new_data_ids['goals'][$favv['goal_id']];
-						if($user_id>0 && $goal_id>0) {
-							$ins = array(
-								'goal_id' => $goal_id,
-								'member_id' => $user_id
+						foreach ($time_period as $tp) {
+							unset($tp['id']);
+							$tp['goal_id'] = $goal_id;
+							$this->db->insert('time_period', $tp);
+						}
+
+						foreach ($contact as $ct) {
+							unset($ct['id']);
+							$contac = $this->db->insert('contact', $ct);
+
+							$goal_ct = array(
+								'contact_id' => $contac,
+								'goal_id' => $goal_id
 							);
-							$this->db->insert('fav', $ins);
+							$this->db->insert('goal_contact', $goal_ct);
 						}
+
+
+					}
+					$additions++;
+				}
+			}
+
+			foreach ($userdatas as $userdata) {
+				foreach ($userdata['fav'] as $favv) {
+					$user_id = @$new_data_ids['member'][$favv['member_id']];
+					$goal_id = @$new_data_ids['goals'][$favv['goal_id']];
+					if ($user_id > 0 && $goal_id > 0) {
+						$ins = array(
+							'goal_id' => $goal_id,
+							'member_id' => $user_id
+						);
+						$this->db->insert('fav', $ins);
 					}
 				}
-
+			}
 
 
 		}
 
-return redirect('admin/all_users');
+		return redirect('admin/all_users');
 	}
 
-	public function download_images(){
+	public function download_images()
+	{
 
 		$dirPath = './assets/images/uploads/'; // Replace with the actual directory path
 
-	// Create a zip archive
+		// Create a zip archive
 		$zip = new ZipArchive();
 		$zipName = 'images.zip';
 		$zipPath = $dirPath . '/' . $zipName;
@@ -499,7 +548,8 @@ return redirect('admin/all_users');
 	}
 
 
-	public function import_language_table(){
+	public function import_language_table()
+	{
 		$config['upload_path'] = './assets/uploads_csv/';
 		$config['allowed_types'] = 'csv';
 		$config['max_size'] = '10000';
@@ -544,7 +594,6 @@ return redirect('admin/all_users');
 	}
 
 
-
 	public function general_settings()
 	{
 
@@ -553,7 +602,6 @@ return redirect('admin/all_users');
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
 
-		
 
 		$data['title'] = 'Settings';
 
@@ -581,7 +629,7 @@ return redirect('admin/all_users');
 
 		// validate
 		// decode JSON to array and confirm if the array size is greater than 20
-		
+
 		// if is_array(json_decode($lang), true) && sizeof/count($array) > 20
 		if (is_array(json_decode($lang, true)) && count($data['language']) > 20) {
 			// update file using file_put_contents OR fopen PHP functions
@@ -589,19 +637,10 @@ return redirect('admin/all_users');
 			fwrite($data, $lang);
 			fclose($data);
 			echo base_url('admin/language?msg=updated');
-		}
-		// if condition false, dont update and show error 
+		} // if condition false, dont update and show error
 		else {
 			echo base_url('admin/language?error=invalid_format');
 		}
-
-
-
-
-
-
-
-
 
 
 		// if (!isset($_SESSION['admin'])) {
@@ -622,10 +661,6 @@ return redirect('admin/all_users');
 		// );
 
 		// $data['languages'] = $this->db->where('id', $id)->get('language')->result_array()[0];
-
-
-
-
 
 
 		// $this->load->view('global/header', $data);
@@ -659,7 +694,7 @@ return redirect('admin/all_users');
 	public function add_users()
 	{
 
-		
+
 		$data['title'] = 'Add User';
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
@@ -672,14 +707,12 @@ return redirect('admin/all_users');
 	}
 
 
-
 	public function email_templates()
 	{
 
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		
 
 
 		$data['title'] = 'Email Templates';
@@ -753,16 +786,14 @@ return redirect('admin/all_users');
 	}
 
 
-
 	public function login()
 	{
-		
+
 		$data['title'] = 'Login';
 		$this->load->view('global/header', $data);
 		$this->load->view('admin/login', $data);
 		$this->load->view('global/footer', $data);
 	}
-
 
 
 	public function login_post()
@@ -775,7 +806,6 @@ return redirect('admin/all_users');
 			$this->load->database();
 
 			$records = $this->db->where('email', $email)->get('admin')->result_array();
-
 
 
 			if (sizeof($records)) {
@@ -813,9 +843,10 @@ return redirect('admin/all_users');
 			redirect('admin/login?error');
 		}
 	}
+
 	public function account_settings()
 	{
-		
+
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
@@ -827,6 +858,7 @@ return redirect('admin/all_users');
 		$this->load->view('admin/account_settings', $data);
 		$this->load->view('global/footer', $data);
 	}
+
 	public function update_admin_account()
 	{
 		$data = array(
@@ -892,6 +924,7 @@ return redirect('admin/all_users');
 		unset($_SESSION['admin']);
 		redirect('admin/login');
 	}
+
 	public function login_detail()
 	{
 	}
@@ -903,7 +936,6 @@ return redirect('admin/all_users');
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		
 
 
 		$data['title'] = 'All Users';
@@ -924,7 +956,6 @@ return redirect('admin/all_users');
 	{
 		// print_r($id);die();
 
-		
 
 		$data['users'] = $this->db->where('id', $id)->get('member')->result_array()[0];
 
@@ -945,11 +976,22 @@ return redirect('admin/all_users');
 		$this->load->view('global/footer', $data);
 	}
 
+	public function enable_user($id, $status)
+	{
+
+		$update = array(
+			'status' => $status
+		);
+
+		$this->db->where('id', $id)->update('member', $update);
+
+		redirect('admin/all_users');
+	}
+
 	public function update_user()
 	{
 		$user_id = $_POST['update_id'];
 		$data = array(
-
 
 
 			'name' => $this->input->post('name'),
@@ -961,9 +1003,6 @@ return redirect('admin/all_users');
 		// $user_data = $_POST['user'];
 
 
-
-
-
 		$res = $this->db->where('id', $user_id)->update('member', $data);
 
 		if ($res == true) {
@@ -973,6 +1012,7 @@ return redirect('admin/all_users');
 		}
 		redirect('admin/all_users');
 	}
+
 	public function delete_user($id)
 	{
 		if (!isset($_SESSION['admin'])) {
@@ -995,12 +1035,11 @@ return redirect('admin/all_users');
 		if (!isset($_SESSION['admin'])) {
 			redirect(base_url('admin/login?n=please-login_before'));
 		}
-		
+
 
 		$data['title'] = 'Public chat';
 
 		$data['messages'] = $this->db->select('chat.*, member.name, member.signup_date as join_date, member.photo')->join('member', 'member.id=chat.from')->get('chat')->result_array();
-
 
 
 		$this->load->view('global/header', $data);

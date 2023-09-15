@@ -111,7 +111,7 @@
 											<div class=" goal-img">
 												<?php
 												if (isset($goal['photo']) && strlen($goal['photo']) > 2) {
-													echo '<img style="width: 80px; height: 80px; object-fit: cover;border-radius: 15px; float: right;" src="' . base_url('assets/images/uploads/' . $goal['photo']) . '">';
+													echo '<img style="width: 80px; height: 80px; object-fit: cover;border-radius: 15px; float: right;" src="' . base_url('assets/images/uploads/thumb/' . $goal['photo']) . '">';
 												} else {
 												?>
 													<div class="goal-img-alt" style=""><?php echo $w1 . $w2; ?></div>

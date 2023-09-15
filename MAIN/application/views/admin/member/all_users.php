@@ -88,6 +88,7 @@
 					<th><?php echo get_lang('lang_email'); ?></th>
 					
 					<th><?php echo get_lang('lang_phone'); ?></th>
+					<th>Status</th>
 					<th><?php echo get_lang('lang_actions'); ?></th>
 				</tr>
 			</thead>
@@ -96,14 +97,38 @@
 				$count = 0;
 				foreach ($users as $user) {
 					$count++;
-				?>
-					<tr>
+					$disabled=0;
+					if($user['status'] == '0'){
+						$disabled=1;
+					}
+
+
+					if ($user['status'] == '0') {
+						$status_label = 'Pending';
+						$css="color: white; background-color: orange;";
+					} elseif ($user['status'] == '1') {
+						$status_label = 'Approved';
+						$css="color: white; background-color: #007bff;";
+					} elseif ($user['status'] == '2') {
+						$status_label = 'Denied';
+						$css="color: white; background-color: #a2a2a2;";
+					} elseif ($user['status'] == '3') {
+						$status_label = 'Restricted';
+						$css="color: white; background-color: red;";
+					}
+
+					?>
+					<tr style="">
 						<td><?php echo $count; ?></td>
 						<td><?php echo $user['name']; ?></td>
 						<td><?php echo $user['email']; ?></td>
 						<td><?php echo $user['phone']; ?></td>
+						<td><a style="border-radius: 27px; padding: 0 10px; <?php echo $css; ?>" href="#" onclick="$('#user_status_change_id').val('<?php echo $user['id']; ?>'); $('#status_new').val('<?php echo $user['status']; ?>')" data-toggle="modal" data-target="#updateStatus">
+							<?php echo $status_label; ?>
+							</a></td>
 
-						<td><a href="<?php echo base_url('admin/edit_user/' . $user['id']); ?>"><i class="fa fa-edit" style="color: #268171;"></i></a> &nbsp; <a onclick="delete_user(<?php echo $user['id']; ?>);" href="#"><i class="fa fa-trash" style="color: #268171;"></i> </a></td>
+						<td><a href="<?php echo base_url('admin/edit_user/' . $user['id']); ?>"><i class="fa fa-edit" style="color: #268171;"></i></a> &nbsp; <a onclick="delete_user(<?php echo $user['id']; ?>);" href="#"><i class="fa fa-trash" style="color: #268171;"></i> </a>
+
 					</tr>
 				<?php
 				}
@@ -175,6 +200,47 @@
 	</div>
 </div>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="margin-top: 150px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Update status</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form id="updateStatus_form" method="post" action="#" enctype="multipart/form-data">
+			<div class="modal-body">
+
+				<input id="user_status_change_id" type="hidden" name="user_id" value="">
+<div class="form-group">
+	<label>Change the status to: </label>
+	<select id="status_new" name="status" class="form-control">
+		<option value="0">Pending</option>
+		<option value="1">Approved</option>
+		<option value="2">Denied</option>
+		<option value="3">Restricted</option>
+	</select>
+</div>
+
+
+				<label><input type="checkbox" id="notify_on_status_update" name="notify" checked> Notify user for the status change.</label>
+
+
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" id="status_change_submit" class="btn btn-primary">Update status</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 
 <!-- Modal -->
@@ -272,6 +338,27 @@
 			}
 		});
 	}
+
+	$('#updateStatus_form').on('submit', function (e){
+		e.preventDefault();
+		$user_id = $('#user_status_change_id').val();
+		$status = $('#status_new').val();
+		$notify_on_status_update=0;
+		if ($('#notify_on_status_update').is(":checked"))
+		{
+			$notify_on_status_update=1;
+		}
+
+		$.ajax({
+			url:'<?php echo base_url('Admin/update_user_status/'); ?>',
+			type: 'post',
+			data:{user_id:$user_id, status:$status, notify_on_status_update:$notify_on_status_update},
+			success: function(data){
+				location.reload();
+			}
+		})
+	})
+
 
 
 	//$('body').on('click', '#export_data', function (){

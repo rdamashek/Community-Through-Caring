@@ -14,7 +14,11 @@ class Common extends CI_Model
 	public function send_email($to, $subject, $message, $from='', $from_name='')
 	{
 
+		$message = str_replace('{{community_url}}', $_SERVER['SERVER_NAME'], $message);
+		$subject = str_replace('{{community_url}}', $_SERVER['SERVER_NAME'], $subject);
 
+		$message = str_replace('{{community_name}}', get_setting_value('app_name'), $message);
+		$subject = str_replace('{{community_name}}', get_setting_value('app_name'), $subject);
 
 
 		require 'PHPMailer/src/Exception.php';

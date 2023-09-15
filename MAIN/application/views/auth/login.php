@@ -320,6 +320,20 @@
 				<?php
 				}
 
+				if (isset($_GET['status_err'])) {
+					if($_GET['status_err'] == '0'){
+						?>
+						<strong style="color: #fff;"><?php echo get_lang('lang_pending_approval_by_admin') ?></strong>
+							<?php
+					}
+					if($_GET['status_err'] == '3' || $_GET['status_err'] == '2'){
+						?>
+						<strong style="color: #fff;"><?php echo get_lang('lang_restricted_by_admin') ?></strong>
+						<?php
+					}
+
+				}
+
 				?>
 
 

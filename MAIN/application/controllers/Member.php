@@ -7,15 +7,26 @@ class Member extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+//		print_r($_SESSION['user']); die();
+		if($_SESSION['user']['status']!='1'){
+			redirect(base_url('welcome/login?status_err='.$_SESSION['user']['status']));
+		}
 	}
 
 	public function index()
 	{
 
-		
+
 
 
 		if (isset($_SESSION['user'])) {
+
+			if($_SESSION['user']['status']!='1'){
+				redirect(base_url('welcome/login?status_err='.$_SESSION['user']['status']));
+			}
+
+
 			redirect(base_url('member/dashboard'));
 		} else {
 			redirect(base_url('welcome/login'));
@@ -24,14 +35,17 @@ class Member extends CI_Controller
 
 	public function dashboard()
 	{
-		
 
 
-		
+
+
 
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?please-before-login'));
 		}
+
+
+
 
 		$data['title'] = 'Dashboard';
 
@@ -49,7 +63,7 @@ class Member extends CI_Controller
 
 	public function my_offers()
 	{
-		
+
 		if (!isset($_SESSION['user']) ) {
 			redirect(base_url('welcome/login?n=add-new'));
 		}
@@ -67,7 +81,7 @@ class Member extends CI_Controller
 
 	public function my_needs()
 	{
-		
+
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?n=add-new'));
 		}
@@ -115,7 +129,7 @@ class Member extends CI_Controller
 	// }
 	public function account_settings()
 	{
-		
+
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?n=add-new'));
 		}
@@ -134,13 +148,13 @@ class Member extends CI_Controller
 	}
 	public function update_member_account()
 	{
-	
+
 		$data = array(
 
 			'name' => $this->input->post('name'),
 			'phone' => $this->input->post('phone'),
 			'email' => $this->input->post('email')
-		
+
 
 		);
 		if (isset($_FILES['goal_image'])) {
@@ -161,14 +175,14 @@ class Member extends CI_Controller
 		} else {
 			$this->session->set_flashdata('err', "Error");
 		}
-		 return redirect('member/account_settings');
+		return redirect('member/account_settings');
 	}
 	public function update_member_password()
-	
-	{
-		
 
-		
+	{
+
+
+
 		$member_pass = $this->db->select('password')->from('member')->where('id', $_SESSION['user']['id'])->get()->result_array()[0];
 
 		if (password_verify($_POST['old_password'], $member_pass['password'])) {
@@ -196,7 +210,7 @@ class Member extends CI_Controller
 
 	public function change_password()
 	{
-		
+
 
 
 		$data['title'] = 'Change Password';
@@ -213,7 +227,7 @@ class Member extends CI_Controller
 
 	public function create_goal()
 	{
-		
+
 
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?redirect=member_create_goal'));
@@ -240,7 +254,7 @@ class Member extends CI_Controller
 		}
 
 		$this->db->insert('chat', $ins);
-		
+
 	}
 
 
@@ -302,7 +316,7 @@ class Member extends CI_Controller
 
 	public function create_offer()
 	{
-		
+
 
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?n=add-new'));
@@ -318,7 +332,7 @@ class Member extends CI_Controller
 
 	public function create_need()
 	{
-		
+
 
 		if (!isset($_SESSION['user'])) {
 			redirect(base_url('welcome/login?n=add-new'));
@@ -410,7 +424,7 @@ class Member extends CI_Controller
 
 	public function update_need_save()
 	{
-		
+
 		$goal_id = $_POST['update_id'];
 		$goal_data = $_POST['goal'];
 		$contact_data = $_POST['contact'];
@@ -458,7 +472,7 @@ class Member extends CI_Controller
 	public function edit_offer($id)
 	{
 
-		
+
 
 		$data['goal'] = $this->db->where('id', $id)->get('goals')->result_array()[0];
 		$data['period'] = @$this->db->where('goal_id', $id)->get('time_period')->result_array()[0];
@@ -474,7 +488,7 @@ class Member extends CI_Controller
 
 		$this->load->view('global/header', $data);
 		$this->load->view('global/nav', $data);
-		$this->load->view('member/edit_offer', $data); 
+		$this->load->view('member/edit_offer', $data);
 		$this->load->view('global/footer', $data);
 	}
 	public function delete_offer($id)
@@ -490,7 +504,7 @@ class Member extends CI_Controller
 	public function edit_need($id)
 	{
 
-		
+
 
 
 		$data['goal'] = $this->db->where('id', $id)->get('goals')->result_array()[0];
@@ -525,7 +539,7 @@ class Member extends CI_Controller
 		$ins = array(
 			'goal_id' => $id,
 			'member_id' => $_SESSION['user']['id'],
-			
+
 		);
 		$this->db->insert('fav', $ins);
 	}
