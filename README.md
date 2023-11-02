@@ -9,15 +9,16 @@ These instructions will give you a copy of the project up and running on your lo
 
 Requirements for the software and other tools to build, test and push. You must have these installed in your system before proceeding to the next step.
 
-- PHP 7.4+
-- [Composer](https://getcomposer.org/download/)
-- [GIT](https://git-scm.com/downloads)
+- PHP 7.4+ (Required for compatibility with the project)
+- [Composer](https://getcomposer.org/download/) (Dependency management)
+- [GIT](https://git-scm.com/downloads) (Version control)
+
 
 
 ### Installation
 
-A step by step series of examples that tell you how to get a development
-environment running. Please follow the installation process carefully.
+
+This section will guide you through setting up a local development environment for the project. Please follow the installation process carefully.
 
 1. To clone the project in your system, run:
 
@@ -39,7 +40,8 @@ After successful attempt, you should see all dependencies being installed and no
 NOTE that the code is in `/MAIN` directory
 
 ### Setting up the database
-Please follow these steps to install the database to your local server.
+
+Follow these steps to install the necessary database for your local server.
 
 - Open your local database server, like `localhost/phpmyadmin` and create a new database named `community_caring`
 - Once the database is created, uplaod the database file. You can find the database file in `/Database/community_caring.sql` directory of your project.
@@ -47,6 +49,8 @@ Please follow these steps to install the database to your local server.
 
 
 ## Environment Variables
+
+Environment variables are used to configure the application. They include essential information such as database configurations and basic app setup.
 
 The project uses the env plugin to add the ability of configurations all at one place. Once you do the above steps, now its time for setting up the environment variables and your app is ready to go.
 
@@ -64,13 +68,33 @@ You will need to add the following environment variables to your `/.env` file . 
 
 Once we get the database setup, we can do some optional configurations for the SMTP/ Mail server as listed in the .env file.
 
-## Testing
-Navigate to `/admin` URL and use the following credentials to login:
 
-- Email: `admin@admin.com`
-- Password: `123456`
+## Starting the Service for /admin URL
 
-For basic account, you can register a new account directly from homepage.
+In order to access the `/admin` URL and test the application, you'll need to start the corresponding service. Follow these steps:
+
+1. **Start the PHP and MySQL Service:**
+
+    - For Windows, you can use [XAMPP](https://www.apachefriends.org/download.html).
+    - For iOS, you can use [WAMP](https://www.mamp.info/en/downloads/).
+
+2. **Access the Application:**
+
+    - Once the service is up and running, open your web browser and go to either of the following URLs, depending on the software you chose for the service:
+        - For XAMPP (Windows): [http://localhost/Community-Through-Caring/MAIN/admin](http://localhost/Community-Through-Caring/MAIN/admin)
+        - For WAMP (iOS): [http://localhost/](http://localhost/)
+
+3. **Login Credentials:**
+
+    - Use the following credentials to log in:
+        - Email: `admin@admin.com`
+        - Password: `123456`
+
+   For users without an existing account, they can register a new account directly from the homepage.
+
+Please ensure that the PHP and MySQL service is running before accessing the application.
+
+
 
 
 ## Color Reference
@@ -82,11 +106,18 @@ For basic account, you can register a new account directly from homepage.
 | Chat Color | ![#72b8ff](https://via.placeholder.com/10/72b8ff?text=+) #72b8ff |
 
 ## Built With
-- Codeigniter V3.1.13
-- jQuery
-- HTML5
-- CSS3
-- Overhang.js
+
+The project is built using the following technologies:
+
+- **Codeigniter V3.1.13**: A powerful PHP framework for building web applications.
+- **jQuery**: A fast, small, and feature-rich JavaScript library that simplifies client-side scripting.
+- **HTML5**: Used for creating web pages.
+- **CSS3**: Used for styling web pages.
+- **Datatables**: A jQuery plugin for enhancing the functionality of HTML tables, allowing for features like sorting, filtering, and pagination.
+- **Overhang.js**: A simple, customizable jQuery plugin for creating overlay-based notifications.
+
+These technologies form the foundation of the project, providing a robust and modern development stack.
+
 
 
 ## Contributing
