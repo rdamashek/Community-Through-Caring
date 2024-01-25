@@ -159,6 +159,7 @@
 					<input type="text" name="" id="setting_value" class="form-control" placeholder="Please enter the new value" aria-describedby="helpId">
 <!--					<small id="helpId" class="text-muted">Help text</small>-->
 				</div>
+				
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

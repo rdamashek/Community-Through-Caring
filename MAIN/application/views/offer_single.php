@@ -13,6 +13,7 @@
 		font-size: 16px;
 		font-weight: 600;
 		white-space: unset;
+    text-align: right;
 	}
 
 	a,

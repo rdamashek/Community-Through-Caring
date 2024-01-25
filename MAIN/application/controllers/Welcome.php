@@ -368,32 +368,10 @@ class Welcome extends CI_Controller
 			}
 
 			$ret['success'] = 1;
-
-			$this->post_signup_emails($user_data);
 		}
-
 
 		echo json_encode($ret);
 	}
-
-
-	public function post_signup_emails($user){
-
-		$to = $user['email'];
-		$name = $user['name'];
-
-		$this->load->model('Common');
-
-		$template = get_email_template('welcome');
-		$body = $template['body'];
-		$subject = $template['subject'];
-		$body = str_replace('{{name}}', $name, $body);
-		$subject = str_replace('{{name}}', $name, $subject);
-
-		$this->Common->send_email($to, $subject, $body);
-	}
-
-
 
 	public function login()
 	{

@@ -101,7 +101,7 @@
 					<select onchange="show_options(this);" class="form-control main-single-inp" name="period[type]">
 						<option disabled selected><?php echo get_lang('lang_select_urgency'); ?></option>
 						<option value="asap" <?php echo $period['type'] == 'asap' ? 'selected' : ''; ?> style="color: #fff; background-color: #44c0aa"><?php echo get_lang('lang_asap'); ?></option>
-						<option value="before" <?php echo $period['type'] == 'before' ? 'selected' : ''; ?> style="color: #fff; background-color: #44c0aa"><?php echo get_lang('lang_barter'); ?></option>
+						<option value="before" <?php echo $period['type'] == 'before' ? 'selected' : ''; ?> style="color: #fff; background-color: #44c0aa"><?php echo get_lang('lang_before'); ?></option>
 						<option value="recurring" <?php echo $period['type'] == 'recurring' ? 'selected' : ''; ?> style="color: #fff; background-color: #44c0aa"><?php echo get_lang('lang_recurring'); ?></option>
 						<option value="after" <?php echo $period['type'] == 'after' ? 'selected' : ''; ?> style="color: #fff; background-color: #44c0aa"><?php echo get_lang('lang_after'); ?></option>
 					</select>

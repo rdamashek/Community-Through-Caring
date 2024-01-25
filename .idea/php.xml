@@ -49,6 +49,9 @@
       <path value="$PROJECT_DIR$/MAIN/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/MAIN/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/MAIN/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/nelexa/zip" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/symfony/finder" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.3.0" />

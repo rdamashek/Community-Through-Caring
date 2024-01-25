@@ -14,6 +14,10 @@ class Common extends CI_Model
 	public function send_email($to, $subject, $message, $from='', $from_name='')
 	{
 
+		$message = str_replace('%7B%7Bcommunity_url%7D%7D', $_SERVER['SERVER_NAME'], $message);
+		$subject = str_replace('%7B%7Bcommunity_url%7D%7D', $_SERVER['SERVER_NAME'], $subject);
+
+
 		$message = str_replace('{{community_url}}', $_SERVER['SERVER_NAME'], $message);
 		$subject = str_replace('{{community_url}}', $_SERVER['SERVER_NAME'], $subject);
 

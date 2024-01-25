@@ -36,6 +36,7 @@
 		font-size: 16px;
 		font-weight: 600;
 		white-space: unset;
+    text-align: right;
 	}
 
 	a,
@@ -97,14 +98,14 @@
 				} elseif ($goal['delivery_type'] == 'address') {
 					echo '<li class="list-group-item">'.get_lang('lang_delivery_details').'<span class="badge">' . $goal['address']['address'].' '.$goal['address']['city'] . ', ' . $goal['address']['state_province'] . ', ' . $goal['address']['county'].', '. $goal['address']['country'] . '</span></li>';
 					if(strlen($goal['address']['zip']) > 0){
-						echo '<li class="list-group-item">ZIP'.'<span class="badge">' .  $goal['address']['zip'] . '</span></li>';
+						echo '<li class="list-group-item">'.get_lang('lang_zip').'<span class="badge">' .  $goal['address']['zip'] . '</span></li>';
 					}
 
 
-					echo '<li class="list-group-item">Needed within the '.'<span class="badge">' .  ucwords($goal['address']['region']) . '</span></li>';
+					echo '<li class="list-group-item">'.get_lang('lang_needed_within_the').'<span class="badge">' .  ucwords($goal['address']['region']) . '</span></li>';
 
 					if($goal['address']['distance'] > 0) {
-						echo '<li class="list-group-item">Needed in the area of ' . '<span class="badge">' . $goal['address']['distance'] . ' Miles</span></li>';
+						echo '<li class="list-group-item">'.get_lang('lang_needed_in_the_area_of').'<span class="badge">' . $goal['address']['distance'] . get_lang('lang_miles') .'</span></li>';
 					}
 				}
 
