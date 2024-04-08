@@ -32,7 +32,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -77,6 +77,9 @@
       <path value="$PROJECT_DIR$/MAIN/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/MAIN/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/MAIN/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/nelexa/zip" />
+      <path value="$PROJECT_DIR$/MAIN/vendor/symfony/finder" />
     </include_path>
   </component>
   <component name="ProjectId" id="2LMuUZnMH56S2NUSOib96Uez6oD" />
@@ -96,7 +99,7 @@
     "WebServerToolWindowPanel.toolwindow.show.date": "false",
     "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
     "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "last_opened_file_path": "C:/xampp8/htdocs/matter-js",
+    "last_opened_file_path": "C:/xampp8.2/htdocs/Community-Through-Caring",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -167,6 +170,7 @@
       <workItem from="1679755609337" duration="8278000" />
       <workItem from="1679855728981" duration="9597000" />
       <workItem from="1679908538858" duration="26402000" />
+      <workItem from="1712590667204" duration="42000" />
     </task>
     <servers />
   </component>
