@@ -59,22 +59,50 @@ note that you must be in dir: 'Community-Through-Caring/MAIN'
 
 Environment variables are used to configure the application. They include essential information such as database configurations and basic app setup.
 
-The project uses the env plugin to add the ability of configurations all at one place. Once you do the above steps, now its time for setting up the environment variables and your app is ready to go.
+The project uses the env plugin to add the ability of configurations all at one place. Once you do the above steps, now it's time for setting up the environment variables and your app is ready to go. The `.env` file is located at the project root folder. You need to edit the `.env` file and make the required configurations as listed below. 
 
 
-You will need to add the following environment variables to your `/.env` file . These all variables will help you app to run locally. This includes the database configurations and basic setup of the app.
 
-- `CI_ENV='prod'` defines the running environment Can be set to `production` OR `development`.
 
-- `DB_HOSTNAME='localhost'` Your database hostname. In most cases its `localhost`
+### SMTP and Database Configurations
 
-- `DB_USERNAME='root'` Your database username.
+In order to ensure seamless communication and data management within your application, it's essential to configure both SMTP (Simple Mail Transfer Protocol) for email functionality and database settings for storing and retrieving data.
 
-- `DB_PASSWORD=''` Your database password.
+#### SMTP Configurations
 
-- `DB_DATABASE='community_caring'` Your database name. In this case its `community_caring`
+SMTP is crucial for sending emails from your application, whether it's for user verification, password resets, or notifications. Below are the environment variables related to SMTP that you need to configure in your `.env` file:
 
-Once we get the database setup, we can do some optional configurations for the SMTP/ Mail server as listed in the .env file.
+```dotenv
+SMTP_HOST=''          # The hostname of your SMTP server, provided by your email service provider.
+SMTP_DEBUG='0'        # Set debugging mode. Set to '1' for debugging, '0' for production.
+SMTP_AUTH='false'     # Indicates whether SMTP authentication is required. Set to 'true' if authentication is needed.
+SMTP_PORT='25'        # The port number of your SMTP server.
+SMTP_USERNAME=''      # Your SMTP username (if authentication is required).
+SMTP_PASSWORD=''      # Your SMTP password (if authentication is required).
+SMTP_FROM_DEFAULT=''  # The default email address from which emails will be sent.
+SMTP_FROM_NAME=''     # The name associated with the sender's email address.
+SMTP_SECURE='false'   # Indicates whether to use a secure connection (TLS/SSL). Set to 'true' if a secure connection is required.
+SMTP_AUTO_TLS='false' # Indicates whether to enable automatic TLS. Set to 'true' if automatic TLS is required.
+```
+Ensure you replace the empty strings ('') with the appropriate values provided by your email service provider. If you're unsure about these details, contact your email service provider for assistance.
+#### Database Configurations
+Database configurations are essential for storing and managing data within your application. Here are the environment variables related to your database setup:
+```
+CI_ENV='prod'                # Defines the running environment. Can be set to 'production' or 'development'.
+DB_HOSTNAME='localhost'      # The hostname of your database server. In most cases, it's 'localhost'.
+DB_USERNAME='root'           # Your database username.
+DB_PASSWORD=''               # Your database password.
+DB_DATABASE='community_caring'  # Your database name. In this case, it's 'community_caring'.
+```
+
+Replace the placeholder values with the actual details corresponding to your database setup. If you're using a remote database server, make sure to provide the correct hostname, username, password, and database name as provided by your hosting provider.
+
+### Setting Up Your Environment
+Once you've configured both SMTP and database settings in your .env file, your application will be ready to run locally. These configurations ensure that your application can send emails and interact with the database seamlessly.
+
+If you encounter any issues during setup or have questions about specific configurations, feel free to reach out for assistance.
+
+
 
 ## Starting the Service for /admin URL
 
